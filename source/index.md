@@ -1,8 +1,21 @@
 ---
-title: Home
-layout: index
+title:
+date:
+updated:
+type:
+comments:
+description:
+keywords:
+top_img:
+mathjax:
+katex:
+aside:
+aplayer:
+highlight_shrink:
+random:
 ---
 
-# Welcome to my personal website!
-
 Here is the homepage content.
+
+
+
