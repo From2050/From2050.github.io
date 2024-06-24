@@ -766,6 +766,7 @@ subtitle:
   # 如果關閉打字效果，subtitle 只會顯示 sub 的第一行文字
   sub: 
   # 'The world isn't binary, but there is the whole world between binary'
+  # 'The world isn't binary, yet a whole universe lies between binary.'
 
 # Loading Animation (加載動畫)
 preloader:
