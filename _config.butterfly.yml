@@ -9,16 +9,16 @@ nav:
 
 # Menu 目錄
 menu:
-  Home: / || fas fa-home
-  lab: /lab/ || fas fa-flask
-  Archives: /archives/ || fas fa-archive
+  Home: /
+  lab: /lab/
+  Archives: /archives/
   # Tags: /tags/ || fas fa-tags
   # Categories: /categories/ || fas fa-folder-open
   # List||fas fa-list:
   #   Music: /music/ || fas fa-music
   #   Movie: /movies/ || fas fa-video
   # Link: /link/ || fas fa-link
-  About: /about/ || fas fa-heart
+  About: /about/
 
 # Code Blocks (代碼相關)
 # --------------------------------------

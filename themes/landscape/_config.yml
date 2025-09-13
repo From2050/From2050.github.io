@@ -4,7 +4,9 @@
 # Navigation menu
 menu:
   Home: /
-  Archives: /archives
+  Lab: /lab/
+  Archives: /archives/
+  About: /about/
 # RSS link
 rss: /atom.xml
 # Path of title banner image of page top
