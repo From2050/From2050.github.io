@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Between Binary | Digital Garden</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=Space+Grotesk:wght@300;500;700&display=swap');
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .font-mono {
+            font-family: 'Space Grotesk', monospace;
+        }
+
+        /* Warm/Organic Background */
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* Deep Space + Warmth (Sunrise effect) */
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        }
+
+        #canvas-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 80% 20%, rgba(255, 150, 100, 0.15), transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(100, 200, 255, 0.1), transparent 40%);
+            pointer-events: none;
+        }
+
+        /* Soft Glassmorphism */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 200, 150, 0.2);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+        }
+
+        .gradient-text {
+            /* Warmer, humanistic gradient (Gold -> Soft Purple -> Blue) */
+            background: linear-gradient(90deg, #FFD194 0%, #D1914B 30%, #70A1FF 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .glow-text {
+            /* Softer glow */
+            text-shadow: 0 0 30px rgba(255, 200, 150, 0.2);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen relative">
+    <div id="canvas-container">
+        <canvas id="neuro-canvas"></canvas>
+        <div id="canvas-overlay"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-panel border-b-0 border-b-slate-800">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold font-mono tracking-tighter">
+                BETWEEN <span class="text-amber-200">BINARY</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-light tracking-wide">
+                <a href="#" class="hover:text-amber-200 transition-colors">GARDEN</a>
+                <a href="#" class="hover:text-amber-200 transition-colors">LAB</a>
+                <a href="#" class="hover:text-amber-200 transition-colors">PARKOUR</a>
+                <a href="#" class="hover:text-amber-200 transition-colors">ABOUT</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <main class="relative pt-32 pb-20 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[60vh]">
+            <div class="space-y-8">
+                <div
+                    class="inline-block px-4 py-1 text-xs font-mono text-amber-200 border border-amber-900/50 rounded-full bg-amber-900/10 tracking-widest">
+                    LABORATORY • NOTES • EXPERIMENTS
+                </div>
+                <h1 class="text-6xl md:text-8xl font-bold leading-tight font-serif tracking-tight">
+                    Between <br>
+                    <span class="gradient-text glow-text">Binary</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-slate-300 font-light max-w-lg leading-relaxed">
+                    A digital garden for cultivating immersive tech. <br>
+                    <span id="typed-output" class="text-amber-100/80 italic"></span>
+                </p>
+                <div class="flex space-x-4 pt-6">
+                    <button
+                        class="px-8 py-3 bg-gradient-to-r from-amber-700 to-amber-600 hover:from-amber-600 hover:to-amber-500 text-white font-medium rounded-full transition-all shadow-lg shadow-amber-900/30 tracking-wide flex items-center gap-2">
+                        <i class="fas fa-flask"></i> Enter Lab
+                    </button>
+                    <button
+                        class="px-8 py-3 glass-card hover:bg-white/5 rounded-full transition-all font-light tracking-wide flex items-center gap-2">
+                        <i class="fas fa-book-open"></i> Explore Notes
+                    </button>
+                </div>
+            </div>
+
+            <!-- Abstract Representation -->
+            <div class="relative hidden lg:block h-full min-h-[400px]">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-64 h-64 border border-amber-500/20 rounded-full animate-[spin_20s_linear_infinite]">
+                    </div>
+                    <div
+                        class="w-48 h-48 border border-purple-500/20 rounded-full absolute animate-[spin_25s_linear_infinite_reverse]">
+                    </div>
+                    <div
+                        class="w-32 h-32 border border-blue-500/20 rounded-full absolute animate-[pulse_4s_ease-in-out_infinite]">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pillars / Recent Posts -->
+        <div class="max-w-7xl mx-auto mt-24">
+            <h2 class="text-2xl font-light mb-10 tracking-widest text-amber-200/60 uppercase text-center"><i
+                    class="fas fa-seedling mr-2"></i> Growing Ideas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Card 1 -->
+                <div
+                    class="glass-card p-6 rounded-2xl flex flex-col h-full cursor-pointer group border-t border-t-white/10">
+                    <div
+                        class="h-40 w-full bg-slate-800/50 rounded-xl mb-4 overflow-hidden relative group-hover:shadow-2xl transition-all duration-500">
+                        <img src="https://images.unsplash.com/photo-1626379953822-baec19c3accd?auto=format&fit=crop&q=80&w=400"
+                            class="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-700"
+                            alt="VR Image" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                        <div
+                            class="absolute bottom-3 left-4 text-xs font-bold tracking-widest text-amber-300 uppercase">
+                            VR / Education</div>
+                    </div>
+                    <h3 class="text-lg font-medium mb-3 group-hover:text-amber-200 transition-colors leading-snug">
+                        Immersive Storytelling in VR</h3>
+                    <p class="text-slate-400 text-sm flex-grow font-light leading-relaxed">Narrative as the most
+                        powerful learning tool in virtual spaces.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div
+                    class="glass-card p-6 rounded-2xl flex flex-col h-full cursor-pointer group border-t border-t-white/10">
+                    <div
+                        class="h-40 w-full bg-slate-800/50 rounded-xl mb-4 overflow-hidden relative group-hover:shadow-2xl transition-all duration-500">
+                        <img src="https://images.unsplash.com/photo-1520334297074-ce9a63bcc67c?auto=format&fit=crop&q=80&w=400"
+                            class="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-700"
+                            alt="Parkour Image" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                        <div
+                            class="absolute bottom-3 left-4 text-xs font-bold tracking-widest text-emerald-300 uppercase">
+                            Movement</div>
+                    </div>
+                    <h3 class="text-lg font-medium mb-3 group-hover:text-amber-200 transition-colors leading-snug">Flow
+                        State & Parkour</h3>
+                    <p class="text-slate-400 text-sm flex-grow font-light leading-relaxed">Understanding cognitive
+                        growth through physical obstacles.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div
+                    class="glass-card p-6 rounded-2xl flex flex-col h-full cursor-pointer group border-t border-t-white/10">
+                    <div
+                        class="h-40 w-full bg-slate-800/50 rounded-xl mb-4 overflow-hidden relative group-hover:shadow-2xl transition-all duration-500">
+                        <img src="https://images.unsplash.com/photo-1555664424-778a18a21c60?auto=format&fit=crop&q=80&w=400"
+                            class="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-700"
+                            alt="Embedded Image" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                        <div class="absolute bottom-3 left-4 text-xs font-bold tracking-widest text-blue-300 uppercase">
+                            Embedded</div>
+                    </div>
+                    <h3 class="text-lg font-medium mb-3 group-hover:text-amber-200 transition-colors leading-snug">
+                        Tangible Interfaces</h3>
+                    <p class="text-slate-400 text-sm flex-grow font-light leading-relaxed">Bringing digital worlds to
+                        life through haptic ESP32 gloves.</p>
+                </div>
+
+                <!-- Card 4 -->
+                <div
+                    class="glass-card p-6 rounded-2xl flex flex-col h-full cursor-pointer group border-t border-t-white/10">
+                    <div
+                        class="h-40 w-full bg-slate-800/50 rounded-xl mb-4 overflow-hidden relative group-hover:shadow-2xl transition-all duration-500">
+                        <img src="https://images.unsplash.com/photo-1558655146-d09347e0d72c?auto=format&fit=crop&q=80&w=400"
+                            class="w-full h-full object-cover opacity-60 group-hover:scale-110 transition-transform duration-700"
+                            alt="Design Image" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                        <div
+                            class="absolute bottom-3 left-4 text-xs font-bold tracking-widest text-indigo-300 uppercase">
+                            Design</div>
+                    </div>
+                    <h3 class="text-lg font-medium mb-3 group-hover:text-amber-200 transition-colors leading-snug">
+                        Cognitive Layouts</h3>
+                    <p class="text-slate-400 text-sm flex-grow font-light leading-relaxed">Designing learning interfaces
+                        that respect human cognition.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-800 mt-20 py-10">
+        <div class="max-w-7xl mx-auto px-6 text-center text-gray-500 text-sm">
+            <p>&copy; 2025 Between Binary. Built for the Metaverse.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Typing Effect simulation - Updated for Lab context
+        const words = ["VR Experiments", "Learning Notes", "Parkour Logs", "System Prototypes"];
+        let i = 0;
+        let timer;
+
+        function typeWriter() {
+            const el = document.getElementById('typed-output');
+            el.textContent = words[i];
+            i = (i + 1) % words.length;
+        }
+        setInterval(typeWriter, 2000);
+        typeWriter();
+
+        // Canvas Effect: Connected Particles
+        const canvas = document.getElementById('neuro-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                // Warmer, softer particles
+                ctx.fillStyle = `rgba(255, 220, 180, ${this.size / 4})`; // Soft amber
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let k = 0; k < 70; k++) particles.push(new Particle()); // More, smaller particles
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        // Organic connections
+                        ctx.strokeStyle = `rgba(180, 150, 255, ${0.08 - dist / 1500})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+</body>
+
+</html>
