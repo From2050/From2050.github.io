@@ -6,6 +6,7 @@ export default {
             fontFamily: {
                 sans: ['Outfit', 'sans-serif'],
                 mono: ['Space Grotesk', 'monospace'],
+                serif: ['ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
             },
             colors: {
                 background: '#050505',

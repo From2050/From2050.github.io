@@ -1,0 +1,101 @@
+---
+---
+<div id="canvas-container">
+    <canvas id="neuro-canvas"></canvas>
+    <div id="canvas-overlay"></div>
+</div>
+
+<style>
+    /* Particle Canvas Stylings */
+    #canvas-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        pointer-events: none;
+        /* Deep Space + Warmth (Match Preview) */
+        background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+    }
+
+    #canvas-overlay {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 80% 20%, rgba(255, 150, 100, 0.15), transparent 40%),
+                    radial-gradient(circle at 20% 80%, rgba(100, 200, 255, 0.1), transparent 40%);
+    }
+</style>
+
+<script is:inline>
+    // Exact copy of the working logic from design_preview.html
+    (function() {
+        const canvas = document.getElementById('neuro-canvas');
+        if (!canvas) {
+            console.error("NeuroBackground: Canvas not found");
+            return;
+        }
+        
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+        
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                // Warmer, softer particles (Soft amber)
+                ctx.fillStyle = `rgba(255, 220, 180, ${this.size / 4})`; 
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        // Initialize particles
+        for (let k = 0; k < 70; k++) particles.push(new Particle()); // 70 particles like preview
+        
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                for (let j = i; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.beginPath();
+                        // Organic connections
+                        ctx.strokeStyle = `rgba(180, 150, 255, ${0.08 - dist / 1500})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+        console.log("NeuroBackground: Animation started");
+    })();
+</script>
