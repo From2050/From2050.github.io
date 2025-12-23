@@ -1,0 +1,49 @@
+---
+title: 'Interactive Components Demo'
+description: 'Demonstrating the power of MDX in Astro.'
+pubDate: 2025-12-23
+status: 'beta'
+stack: ['MDX', 'Astro', 'React']
+repoUrl: '#'
+---
+import Callout from '../../components/mdx/Callout.astro';
+import Button from '../../components/mdx/Button.astro';
+import NeuroBackground from '../../components/NeuroBackground.astro';
+
+## What is this?
+
+This page is an **MDX** file. Behin the scenes, it's just Markdown, but I can import and use components directly.
+
+### 1. Alert Boxes (Callouts)
+
+I can drop in alert boxes without writing complex HTML divs every time:
+
+<Callout type="tip" title="Did you know?">
+	MDX allows you to use your existing Astro, React, Vue, or Svelte components inside your markdown content!
+</Callout>
+
+<Callout type="warning">
+	**Warning:** This is extremely powerful. You can even embed full applications here.
+</Callout>
+
+### 2. Custom Buttons
+
+Here is a button component used directly in the text flow:
+
+<p class="not-prose py-4">
+	<Button href="/garden" icon="fa-leaf">Go to Garden</Button>
+	<Button variant="secondary" href="/" icon="fa-home">Back Home</Button>
+</p>
+
+### 3. Embedding Interactive Scenes
+
+I can even embed the **Particle Animation** component right here in the middle of the article:
+
+<div class="relative h-64 w-full border border-white/10 rounded-xl overflow-hidden my-8 not-prose">
+	<NeuroBackground />
+	<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+		<span class="text-2xl font-bold text-white bg-black/50 px-4 py-2 rounded">Live Canvas Component</span>
+	</div>
+</div>
+
+This changes everything. The "Lab" isn't separate from the "Article". The article *is* the Lab.

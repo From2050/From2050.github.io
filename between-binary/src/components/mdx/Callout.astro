@@ -1,0 +1,32 @@
+---
+interface Props {
+	type?: 'info' | 'warning' | 'tip' | 'error';
+	title?: string;
+}
+
+const { type = 'info', title } = Astro.props;
+
+const colors = {
+	info: 'border-blue-500/50 bg-blue-900/10 text-blue-100',
+	warning: 'border-amber-500/50 bg-amber-900/10 text-amber-100',
+	tip: 'border-emerald-500/50 bg-emerald-900/10 text-emerald-100',
+	error: 'border-red-500/50 bg-red-900/10 text-red-100',
+};
+
+const icons = {
+	info: 'fa-info-circle',
+	warning: 'fa-exclamation-triangle',
+	tip: 'fa-lightbulb',
+	error: 'fa-times-circle',
+};
+---
+
+<div class={`p-4 rounded-lg border my-6 ${colors[type]}`}>
+	<div class="flex items-center gap-3 mb-2">
+		<i class={`fas ${icons[type]}`}></i>
+		<span class="font-bold uppercase tracking-wider text-xs">{title || type}</span>
+	</div>
+	<div class="prose prose-invert prose-sm max-w-none">
+		<slot />
+	</div>
+</div>

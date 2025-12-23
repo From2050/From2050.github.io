@@ -9,10 +9,10 @@ import Layout from '../layouts/Layout.astro';
 				BETWEEN <span class="text-amber-200">BINARY</span>
 			</div>
 			<div class="hidden md:flex space-x-8 text-sm font-light tracking-wide text-gray-300">
-				<a href="#" class="hover:text-amber-200 transition-colors">GARDEN</a>
-				<a href="#" class="hover:text-amber-200 transition-colors">LAB</a>
-				<a href="#" class="hover:text-amber-200 transition-colors">PARKOUR</a>
-				<a href="#" class="hover:text-amber-200 transition-colors">ABOUT</a>
+				<a href="/garden" class="hover:text-amber-200 transition-colors">GARDEN</a>
+				<a href="/lab" class="hover:text-amber-200 transition-colors">LAB</a>
+				<a href="/thoughts" class="hover:text-amber-200 transition-colors">THOUGHTS</a>
+				<a href="/about" class="hover:text-amber-200 transition-colors">ABOUT</a>
 			</div>
 		</div>
 	</nav>
@@ -51,12 +51,12 @@ import Layout from '../layouts/Layout.astro';
 					setInterval(typeWriter, 2000);
 				</script>
 				<div class="flex space-x-4 pt-6">
-					<button class="px-8 py-3 bg-gradient-to-r from-amber-700 to-amber-600 hover:from-amber-600 hover:to-amber-500 text-white font-medium rounded-full transition-all shadow-lg shadow-amber-900/30 tracking-wide flex items-center gap-2">
+					<a href="/lab" class="px-8 py-3 bg-gradient-to-r from-amber-700 to-amber-600 hover:from-amber-600 hover:to-amber-500 text-white font-medium rounded-full transition-all shadow-lg shadow-amber-900/30 tracking-wide flex items-center gap-2">
 						<i class="fas fa-flask"></i> Enter Lab
-					</button>
-					<button class="px-8 py-3 bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 text-white rounded-full transition-all font-light tracking-wide flex items-center gap-2">
+					</a>
+					<a href="/garden" class="px-8 py-3 bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 text-white rounded-full transition-all font-light tracking-wide flex items-center gap-2">
 						 <i class="fas fa-book-open"></i> Explore Notes
-					</button>
+					</a>
 				</div>
 			</div>
 			

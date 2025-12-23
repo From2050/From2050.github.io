@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	const notes = await getCollection('garden');
+	return notes.map((note) => ({
+		params: { slug: note.slug },
+		props: note,
+	}));
+}
+
+const note = Astro.props;
+const { Content } = await note.render();
+
+const stageColors: Record<string, string> = {
+	seedling: 'text-emerald-400 border-emerald-900/50 bg-emerald-900/10',
+	budding: 'text-amber-400 border-amber-900/50 bg-amber-900/10',
+	evergreen: 'text-blue-400 border-blue-900/50 bg-blue-900/10'
+};
+---
+
+<Layout title={`${note.data.title} | Garden`}>
+	<nav class="fixed w-full z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
+		<div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+			<a href="/" class="text-2xl font-bold font-mono tracking-tighter text-white">
+				BETWEEN <span class="text-amber-200">BINARY</span>
+			</a>
+			<div class="hidden md:flex space-x-8 text-sm font-light tracking-wide text-gray-300">
+				<a href="/garden" class="text-amber-200 transition-colors">GARDEN</a>
+				<a href="/lab" class="hover:text-amber-200 transition-colors">LAB</a>
+				<a href="/thoughts" class="hover:text-amber-200 transition-colors">THOUGHTS</a>
+				<a href="/about" class="hover:text-amber-200 transition-colors">ABOUT</a>
+			</div>
+		</div>
+	</nav>
+
+	<main class="pt-32 pb-20 px-6 font-sans min-h-screen">
+		<div class="max-w-3xl mx-auto bg-white/5 border border-white/5 rounded-3xl p-8 md:p-12 relative overflow-hidden">
+			<!-- Background visual -->
+			<div class="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+			<header class="mb-10 relative z-10">
+				<div class="flex items-center justify-between mb-6">
+					<span class={`px-3 py-1 text-xs font-mono uppercase tracking-widest border rounded-full ${stageColors[note.data.stage] || stageColors.seedling}`}>
+						{note.data.stage}
+					</span>
+					<span class="text-slate-500 text-sm font-mono">
+						Last tended: {note.data.updatedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+					</span>
+				</div>
+				<h1 class="text-4xl md:text-5xl font-bold font-serif text-white mb-4">{note.data.title}</h1>
+				<p class="text-lg text-slate-300 italic font-light font-serif">"{note.data.description}"</p>
+			</header>
+
+			<article class="prose prose-invert prose-emerald relative z-10">
+				<Content />
+			</article>
+		</div>
+	</main>
+</Layout>
