@@ -1,9 +1,11 @@
+
 ---
 title: 'VR Locomotion Experiments'
 description: 'Testing non-nauseating movement mechanics for WebXR.'
 pubDate: 2025-11-15
 status: 'prototype'
-stack: ['Three.js', 'WebXR', 'React']
+tags: ['vr', 'movement']
+stack: ['Unity', 'C#', 'Oculus SDK', 'React']
 repoUrl: 'https://github.com/example/vr-locomotion'
 heroImage: '/placeholder-vr.jpg'
 ---

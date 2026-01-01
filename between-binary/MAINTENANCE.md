@@ -68,8 +68,17 @@ tags: ['learning', 'vr']
 Notes go here...
 ```
 
-## 🚀 Deployment
-Since you are using Cloudflare Pages or similar:
+## 🚀 Deployment (Cloudflare Pages)
+
+Since your project is in a subdirectory (`between-binary`), use these settings in Cloudflare:
+
+| Setting | Value |
+| :--- | :--- |
+| **Build Command** | `npm run build` |
+| **Build Output Directory** | `dist` |
+| **Root Directory** | `between-binary` |
+
+### Process:
 1.  Commit your changes: `git add .` -> `git commit -m "New post"`
 2.  Push: `git push`
-3.  Cloudflare will automatically rebuild your site.
+3.  Cloudflare will automatically detect the commit and run the build.
