@@ -1,0 +1,22 @@
+# Topic-First Architecture Implementation
+
+- [x] Schema Updates <!-- id: 0 -->
+    - [x] Update `src/content/config.ts` to add `tags` to `lab` collection <!-- id: 1 -->
+- [x] Content Updates <!-- id: 2 -->
+    - [x] Add tags to `src/content/lab/interactive-demo.mdx` <!-- id: 3 -->
+    - [x] Add tags to `src/content/lab/vr-locomotion.md` <!-- id: 4 -->
+- [x] Feature Implementation <!-- id: 5 -->
+    - [x] Create `src/pages/topics/[tag].astro` dynamic route <!-- id: 6 -->
+    - [x] Implement aggregation logic (fetch from all 3 collections) <!-- id: 7 -->
+    - [x] Design the Topic Explorer layout <!-- id: 8 -->
+- [x] Homepage Integration <!-- id: 9 -->
+    - [x] Update [src/pages/index.astro](file:///C:/Users/jay/Desktop/personal/From2050.github.io/between-binary/src/pages/index.astro) cards to link to topic pages <!-- id: 10 -->
+    - [x] Ensure tags in cards match the actual content tags <!-- id: 11 -->
+- [x] Navigation & Refinements <!-- id: 15 -->
+    - [x] Create [Navigation.astro](file:///C:/Users/jay/Desktop/personal/From2050.github.io/between-binary/src/components/Navigation.astro) component <!-- id: 16 -->
+    - [x] Add [about.astro](file:///C:/Users/jay/Desktop/personal/From2050.github.io/between-binary/src/pages/about.astro) page <!-- id: 17 -->
+    - [x] Add Navigation to `[tag].astro` <!-- id: 18 -->
+    - [x] Fix URL casing (normalize to lowercase paths) <!-- id: 19 -->
+- [ ] Verification <!-- id: 12 -->
+    - [x] Verify homepage links work <!-- id: 13 -->
+    - [x] Verify topic page displays content from multiple sources <!-- id: 14 -->
