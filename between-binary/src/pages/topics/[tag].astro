@@ -1,5 +1,6 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
 
@@ -31,122 +32,110 @@ export async function getStaticPaths() {
 const { tag, thoughts, lab, garden } = Astro.props;
 ---
 
-<BaseLayout>
-	<div class="pt-24 pb-12 bg-gradient-to-br from-slate-900 via-slate-900 to-black min-h-screen">
-		<div class="max-w-7xl mx-auto px-6 lg:px-8">
+<Layout title={`${tag} | Topics`}>
+	<Header />
+
+	<main class="pt-32 pb-20 px-6 font-sans min-h-screen">
+		<div class="max-w-7xl mx-auto">
 			
 			<!-- Header -->
-			<div class="mb-16 border-b border-white/10 pb-8">
-				<div class="flex items-center gap-4 mb-4">
-					<a href="/" class="text-slate-400 hover:text-white transition-colors">
-						<i class="fas fa-arrow-left mr-2"></i>Home
-					</a>
-					<span class="text-slate-600">/</span>
-					<span class="text-amber-200 uppercase tracking-widest text-xs font-bold">Topic Explorer</span>
+			<header class="mb-16">
+				<div class="inline-block px-4 py-1 text-xs font-mono text-purple-200 border border-purple-900/50 rounded-full bg-purple-900/10 tracking-widest mb-4 uppercase">
+					Topic
 				</div>
-				<h1 class="text-5xl md:text-7xl font-bold text-white mb-4 capital">
-					<span class="text-transparent bg-clip-text bg-gradient-to-r from-teal-200 to-emerald-400">
-						{tag}
-					</span>
+				<h1 class="text-5xl md:text-7xl font-bold font-serif text-white mb-6 capitalize">
+					{tag}
 				</h1>
-				<p class="text-xl text-slate-400 font-light max-w-2xl">
-					Curated collection of experiments, notes, and thoughts related to <span class="text-white font-medium">{tag}</span>.
+				<p class="text-xl text-slate-300 font-light max-w-2xl">
+					Curated collection of experiments, notes, and thoughts.
 				</p>
-			</div>
+			</header>
 
 			<!-- Grid Layout -->
-			<div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+			<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 				
-				<!-- Column 1: Lab (Experiments) -->
-				<div class="space-y-8">
-					<div class="flex items-center gap-3 mb-6">
-						<div class="p-2 bg-amber-500/10 rounded-lg text-amber-400">
-							<i class="fas fa-flask text-xl"></i>
-						</div>
-						<h2 class="text-2xl font-bold text-white">Lab <span class="text-sm font-normal text-slate-500 ml-2">({lab.length})</span></h2>
+				<!-- Lab Column -->
+				<div class="space-y-6">
+					<div class="flex items-center gap-3 mb-2">
+						<span class="text-amber-400 bg-amber-400/10 p-2 rounded-lg"><i class="fas fa-flask"></i></span>
+						<h2 class="text-2xl font-bold text-white">Lab</h2>
 					</div>
-					
 					{lab.length > 0 ? (
-						<div class="space-y-6">
+						<div class="space-y-4">
 							{lab.map((project) => (
 								<a href={`/lab/${project.slug}/`} class="block group">
-									<div class="bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-amber-500/50 transition-all duration-300">
+									<div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden hover:border-amber-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-amber-900/10">
 										{project.data.heroImage && (
-											<div class="h-32 bg-cover bg-center" style={`background-image: url('${project.data.heroImage}')`}></div>
+											<div class="h-32 bg-cover bg-center opacity-80 group-hover:opacity-100 transition-opacity" style={`background-image: url('${project.data.heroImage}')`}></div>
 										)}
 										<div class="p-5">
-											<h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-400 transition-colors">{project.data.title}</h3>
+											<h3 class="text-lg font-bold text-white mb-2 group-hover:text-amber-300 transition-colors">{project.data.title}</h3>
 											<p class="text-slate-400 text-sm line-clamp-2">{project.data.description}</p>
-											<div class="mt-4 flex flex-wrap gap-2">
-												{project.data.stack?.slice(0, 3).map(t => (
-													<span class="text-xs px-2 py-1 rounded bg-white/5 text-slate-300 border border-white/5">{t}</span>
-												))}
-											</div>
 										</div>
 									</div>
 								</a>
 							))}
 						</div>
 					) : (
-						<p class="text-slate-600 italic border border-dashed border-white/10 rounded-lg p-6 text-center">No experiments yet.</p>
+						<div class="p-6 border border-dashed border-white/10 rounded-2xl text-slate-500 text-sm italic text-center">
+							No experiments yet.
+						</div>
 					)}
 				</div>
 
-				<!-- Column 2: Garden (Notes) -->
-				<div class="space-y-8">
-					<div class="flex items-center gap-3 mb-6">
-						<div class="p-2 bg-emerald-500/10 rounded-lg text-emerald-400">
-							<i class="fas fa-seedling text-xl"></i>
-						</div>
-						<h2 class="text-2xl font-bold text-white">Garden <span class="text-sm font-normal text-slate-500 ml-2">({garden.length})</span></h2>
+				<!-- Garden Column -->
+				<div class="space-y-6">
+					<div class="flex items-center gap-3 mb-2">
+						 <span class="text-emerald-400 bg-emerald-400/10 p-2 rounded-lg"><i class="fas fa-seedling"></i></span>
+						<h2 class="text-2xl font-bold text-white">Garden</h2>
 					</div>
-
 					{garden.length > 0 ? (
 						<div class="space-y-4">
 							{garden.map((note) => (
-								<a href={`/garden/${note.slug}/`} class="block p-5 bg-emerald-900/10 border border-emerald-500/20 rounded-xl hover:bg-emerald-900/20 transition-all duration-300 group">
-									<h3 class="text-lg font-bold text-emerald-100 mb-2 group-hover:text-emerald-300">{note.data.title}</h3>
-									<p class="text-emerald-200/60 text-sm mb-3">{note.data.description}</p>
-									<div class="flex items-center gap-2 text-xs text-emerald-500/50">
-										<i class="far fa-clock"></i>
-										<FormattedDate date={note.data.updatedDate} />
+								<a href={`/garden/${note.slug}/`} class="block group">
+									<div class="p-5 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl hover:border-emerald-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-900/10">
+										<h3 class="text-lg font-bold text-white mb-2 group-hover:text-emerald-300 transition-colors">{note.data.title}</h3>
+										<p class="text-slate-400 text-sm mb-3 line-clamp-2">{note.data.description}</p>
+										<div class="text-xs text-slate-500 font-mono flex items-center gap-2">
+											<i class="far fa-clock"></i> <FormattedDate date={note.data.updatedDate} />
+										</div>
 									</div>
 								</a>
 							))}
 						</div>
 					) : (
-						<p class="text-slate-600 italic border border-dashed border-white/10 rounded-lg p-6 text-center">No notes planted.</p>
+						<div class="p-6 border border-dashed border-white/10 rounded-2xl text-slate-500 text-sm italic text-center">
+							No notes planted.
+						</div>
 					)}
 				</div>
 
-				<!-- Column 3: Thoughts (Blog) -->
-				<div class="space-y-8">
-					<div class="flex items-center gap-3 mb-6">
-						<div class="p-2 bg-blue-500/10 rounded-lg text-blue-400">
-							<i class="fas fa-feather-alt text-xl"></i>
-						</div>
-						<h2 class="text-2xl font-bold text-white">Thoughts <span class="text-sm font-normal text-slate-500 ml-2">({thoughts.length})</span></h2>
+				<!-- Thoughts Column -->
+				<div class="space-y-6">
+					<div class="flex items-center gap-3 mb-2">
+						 <span class="text-blue-400 bg-blue-400/10 p-2 rounded-lg"><i class="fas fa-feather-alt"></i></span>
+						<h2 class="text-2xl font-bold text-white">Thoughts</h2>
 					</div>
-
-					{thoughts.length > 0 ? (
-						<div class="relative border-l border-white/10 pl-6 space-y-8">
+					 {thoughts.length > 0 ? (
+						<div class="space-y-4">
 							{thoughts.map((post) => (
-								<div class="relative">
-									<div class="absolute -left-[29px] top-1.5 h-3 w-3 rounded-full bg-blue-500/50 ring-4 ring-black"></div>
-									<a href={`/thoughts/${post.slug}/`} class="block group">
-										<div class="text-xs text-blue-400 font-mono mb-1"><FormattedDate date={post.data.pubDate} /></div>
+								<a href={`/thoughts/${post.slug}/`} class="block group">
+									<div class="p-5 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl hover:border-blue-500/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-900/10">
+										 <div class="text-xs text-blue-300 font-mono mb-2"><FormattedDate date={post.data.pubDate} /></div>
 										<h3 class="text-lg font-bold text-white mb-2 group-hover:text-blue-300 transition-colors">{post.data.title}</h3>
-										<p class="text-slate-400 text-sm">{post.data.description}</p>
-									</a>
-								</div>
+										<p class="text-slate-400 text-sm line-clamp-2">{post.data.description}</p>
+									</div>
+								</a>
 							))}
 						</div>
 					) : (
-						<p class="text-slate-600 italic border border-dashed border-white/10 rounded-lg p-6 text-center">No thoughts recorded.</p>
+						<div class="p-6 border border-dashed border-white/10 rounded-2xl text-slate-500 text-sm italic text-center">
+							No thoughts recorded.
+						</div>
 					)}
 				</div>
 
 			</div>
 		</div>
-	</div>
-</BaseLayout>
+	</main>
+</Layout>

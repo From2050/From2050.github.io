@@ -1,0 +1,13 @@
+---
+import Navigation from './Navigation.astro';
+---
+<nav class="fixed w-full z-50 bg-[#050505]/80 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="/" class="text-2xl font-bold font-mono tracking-tighter text-white hover:text-amber-100 transition-colors">
+            BETWEEN <span class="text-amber-200">BINARY</span>
+        </a>
+        <div class="hidden md:block">
+            <Navigation />
+        </div>
+    </div>
+</nav>
