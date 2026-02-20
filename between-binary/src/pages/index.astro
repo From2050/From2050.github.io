@@ -7,8 +7,9 @@ import StarMap from '../components/StarMap';
 <Layout title="Between Binary | Digital Garden">
 	<Header />
 	<main class="relative pt-32 pb-20 px-6 font-sans">
-		<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[60vh]">
-			<div class="space-y-8 z-10">
+		<div class="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[60vh]">
+			<!-- Hero content — z-10 keeps text above stars; pointer-events-none lets hover pass through to stars behind text -->
+			<div class="space-y-8 z-10 pointer-events-none">
 				<div class="inline-block px-4 py-1 text-xs font-mono text-amber-200 border border-amber-900/50 rounded-full bg-amber-900/10 tracking-widest">
 					LABORATORY • NOTES • EXPERIMENTS
 				</div>
@@ -39,7 +40,7 @@ import StarMap from '../components/StarMap';
 					// Cycle every 2s
 					setInterval(typeWriter, 2000);
 				</script>
-				<div class="flex space-x-4 pt-6">
+				<div class="flex space-x-4 pt-6 pointer-events-auto">
 					<a href="/lab/" class="px-8 py-3 bg-gradient-to-r from-amber-700 to-amber-600 hover:from-amber-600 hover:to-amber-500 text-white font-medium rounded-full transition-all shadow-lg shadow-amber-900/30 tracking-wide flex items-center gap-2">
 						<i class="fas fa-flask"></i> Enter Lab
 					</a>
@@ -49,8 +50,12 @@ import StarMap from '../components/StarMap';
 				</div>
 			</div>
 			
-			<!-- Star Map Visualization -->
-			<div class="relative hidden lg:block h-full min-h-[500px] perspective-1000">
+			<!-- Star Map ──────────────────────────────────────────────────
+			     Mobile (<lg): absolute bg behind hero, overflow-hidden clips stars
+			     Desktop (lg+): normal grid column on right, overflow-visible lets
+			     stars extend beyond column (page overflow-x-hidden prevents scrollbar)
+			-->
+			<div class="absolute inset-0 overflow-hidden lg:relative lg:inset-auto lg:overflow-visible lg:h-full lg:min-h-[500px]">
 				<StarMap client:load />
 			</div>
 		</div>
@@ -63,7 +68,6 @@ import StarMap from '../components/StarMap';
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 				
 				<!-- VR Card -->
-				<!-- VR Card -->
 				<a href="/topics/vr/" class="bg-white/5 backdrop-blur-md border border-white/5 p-6 rounded-2xl flex flex-col h-full cursor-pointer hover:transform hover:-translate-y-2 transition-all duration-300 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:bg-white/10 group">
 					<div class="h-40 w-full rounded-xl mb-4 overflow-hidden relative bg-gradient-to-br from-amber-900/40 via-purple-900/20 to-slate-900">
 						 <div class="absolute bottom-3 left-4 text-xs font-bold tracking-widest text-amber-300 uppercase">VR / Education</div>
@@ -73,7 +77,6 @@ import StarMap from '../components/StarMap';
 					<p class="text-slate-400 text-sm flex-grow font-light leading-relaxed">Narrative as the most powerful learning tool.</p>
 				</a>
 
-				<!-- Parkour Card -->
 				<!-- Parkour Card -->
 				<a href="/topics/movement/" class="bg-white/5 backdrop-blur-md border border-white/5 p-6 rounded-2xl flex flex-col h-full cursor-pointer hover:transform hover:-translate-y-2 transition-all duration-300 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:bg-white/10 group">
 					<div class="h-40 w-full rounded-xl mb-4 overflow-hidden relative bg-gradient-to-br from-emerald-900/40 via-slate-900 to-slate-900">
@@ -85,7 +88,6 @@ import StarMap from '../components/StarMap';
 				</a>
 
 				<!-- Embedded Card -->
-				<!-- Embedded Card -->
 				<a href="/topics/embedded/" class="bg-white/5 backdrop-blur-md border border-white/5 p-6 rounded-2xl flex flex-col h-full cursor-pointer hover:transform hover:-translate-y-2 transition-all duration-300 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:bg-white/10 group">
 				   <div class="h-40 w-full rounded-xl mb-4 overflow-hidden relative bg-gradient-to-br from-blue-900/40 via-slate-900 to-slate-900">
 					   <div class="absolute bottom-3 left-4 text-xs font-bold tracking-widest text-blue-300 uppercase">Embedded</div>
@@ -95,7 +97,6 @@ import StarMap from '../components/StarMap';
 				   <p class="text-slate-400 text-sm flex-grow font-light leading-relaxed">Haptic ESP32 gloves for digital worlds.</p>
 			   </a>
 
-				<!-- Design Card -->
 				<!-- Design Card -->
 				<a href="/topics/design/" class="bg-white/5 backdrop-blur-md border border-white/5 p-6 rounded-2xl flex flex-col h-full cursor-pointer hover:transform hover:-translate-y-2 transition-all duration-300 hover:shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)] hover:bg-white/10 group">
 				   <div class="h-40 w-full rounded-xl mb-4 overflow-hidden relative bg-gradient-to-br from-indigo-900/40 via-purple-900/20 to-slate-900">

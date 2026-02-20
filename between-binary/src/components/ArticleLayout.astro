@@ -1,0 +1,212 @@
+---
+/**
+ * ArticleLayout — Medium-style reading container
+ * Wraps article prose content with glassmorphism backdrop,
+ * capped line-length, and optimised dark-mode typography.
+ * 
+ * Usage:
+ *   <ArticleLayout>
+ *     <Content />
+ *   </ArticleLayout>
+ */
+---
+
+<div class="article-container">
+    <slot />
+</div>
+
+<style>
+    /* ═══════════════════════════════════════════
+       1. Glassmorphism Reading Container
+       ═══════════════════════════════════════════ */
+    .article-container {
+        max-width: 680px;
+        margin: 0 auto;
+        background-color: rgba(15, 17, 26, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        padding: 40px 24px;
+    }
+    @media (min-width: 768px) {
+        .article-container {
+            padding: 60px 48px;
+        }
+    }
+
+    /* ═══════════════════════════════════════════
+       2. Typography — serif body, sans headings
+       ═══════════════════════════════════════════ */
+    .article-container :global(p),
+    .article-container :global(li),
+    .article-container :global(blockquote) {
+        font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+        font-size: 1.2rem;
+        line-height: 1.75;
+        letter-spacing: -0.003em;
+        color: #E2E8F0;
+    }
+
+    .article-container :global(p) {
+        margin-top: 0;
+        margin-bottom: 1.5em;
+    }
+
+    /* ─── Headings: proximity principle ─── */
+    .article-container :global(h2) {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.65rem;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: -0.02em;
+        line-height: 1.3;
+        margin-top: 2.5em;
+        margin-bottom: 1em;
+    }
+    .article-container :global(h3) {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #fff;
+        letter-spacing: -0.015em;
+        line-height: 1.35;
+        margin-top: 2em;
+        margin-bottom: 0.75em;
+    }
+    .article-container :global(h4) {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.95);
+        margin-top: 1.75em;
+        margin-bottom: 0.625em;
+    }
+
+    /* ─── Links ─── */
+    .article-container :global(a) {
+        color: #E2E8F0;
+        text-decoration: underline;
+        text-decoration-color: rgba(255, 255, 255, 0.25);
+        text-underline-offset: 3px;
+        transition: text-decoration-color 0.2s;
+    }
+    .article-container :global(a:hover) {
+        text-decoration-color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* ─── Strong / Em ─── */
+    .article-container :global(strong) {
+        color: #fff;
+        font-weight: 600;
+    }
+
+    /* ─── Blockquotes ─── */
+    .article-container :global(blockquote) {
+        border-left: 3px solid rgba(255, 255, 255, 0.2);
+        padding-left: 1.5rem;
+        margin: 2em 0;
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* ─── Lists ─── */
+    .article-container :global(ul),
+    .article-container :global(ol) {
+        margin-top: 1rem;
+        margin-bottom: 1.5em;
+        padding-left: 1.5rem;
+    }
+    .article-container :global(li) {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+
+    /* ═══════════════════════════════════════════
+       3. Horizontal Rules — centered dots
+       ═══════════════════════════════════════════ */
+    .article-container :global(hr) {
+        border: none;
+        text-align: center;
+        margin: 3em auto;
+        overflow: visible;
+    }
+    .article-container :global(hr)::after {
+        content: '· · ·';
+        display: inline-block;
+        letter-spacing: 0.6em;
+        font-size: 1.25rem;
+        color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* ═══════════════════════════════════════════
+       4. Images — bleed outside the text column
+       ═══════════════════════════════════════════ */
+    .article-container :global(img) {
+        max-width: calc(100% + 48px);
+        margin-left: -24px;
+        margin-right: -24px;
+        margin-top: 2em;
+        margin-bottom: 2em;
+        border-radius: 8px;
+    }
+    @media (min-width: 768px) {
+        .article-container :global(img) {
+            max-width: calc(100% + 96px);
+            margin-left: -48px;
+            margin-right: -48px;
+        }
+    }
+
+    /* ─── Figures & captions ─── */
+    .article-container :global(figure) {
+        margin: 2em 0;
+    }
+    .article-container :global(figcaption) {
+        text-align: center;
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.4);
+        margin-top: 0.75rem;
+        font-family: 'Outfit', sans-serif;
+    }
+
+    /* ═══════════════════════════════════════════
+       5. Code & Callout Blocks — clear separation
+       ═══════════════════════════════════════════ */
+    .article-container :global(code) {
+        font-family: 'Space Grotesk', 'SF Mono', 'Fira Code', monospace;
+        font-size: 0.85em;
+        background: rgba(255, 255, 255, 0.06);
+        padding: 0.15em 0.4em;
+        border-radius: 4px;
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .article-container :global(pre) {
+        background: rgba(255, 255, 255, 0.05) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-top: 2em;
+        margin-bottom: 2em;
+        overflow-x: auto;
+        font-size: 0.9rem;
+        line-height: 1.65;
+    }
+    .article-container :global(pre code) {
+        background: none;
+        padding: 0;
+        font-size: inherit;
+        border-radius: 0;
+    }
+
+    /* Callout blocks (Astro Callout component) */
+    .article-container :global(.callout),
+    .article-container :global([class*="callout"]) {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 1.25rem 1.5rem;
+        margin: 2em 0;
+    }
+</style>

@@ -1,0 +1,156 @@
+---
+title: 'Civilization Star Map'
+description: 'Designing an interactive constellation where each star is a node of human knowledge — and making it work on every screen.'
+pubDate: 2026-02-19
+status: 'beta'
+stack: ['React', 'Astro', 'TypeScript', 'CSS Transforms']
+tags: ['design', 'interactive', 'animation']
+heroImage: '/images/lab/star-map/desktop-hero.png'
+---
+import Callout from '../../components/mdx/Callout.astro';
+
+## The Metaphor
+
+Most portfolio sites arrange content in grids. Cards, lists, categories — legible, functional, forgettable.
+
+What if each topic was a **star** instead? Not placed on a grid, but *orbiting* through a shared sky — drifting in and out of view like a living constellation.
+
+That's the idea behind the Civilization Star Map: mapping knowledge the way ancient civilizations mapped the heavens. Each star is a node. Each orbit is a relationship. The whole system breathes.
+
+![The star map on desktop — stars orbit through the hero section](/images/lab/star-map/desktop-hero.png)
+
+---
+
+## From Dots to Orbits
+
+The first version was scattered dots that faded in and out. Felt like a screensaver.
+
+The breakthrough: **physics**. Real celestial bodies follow orbits. So each star got:
+
+- An **elliptical path** with unique eccentricity
+- An **orbital inclination** (tilted orbit plane)
+- A **unique angular velocity** — some drift slowly, others sweep through
+- **Depth** — closer stars glow brighter, distant ones fade
+
+The sky went from "random dots" to "something with intent."
+
+<Callout type="tip" title="Design principle">
+When motion follows physical plausibility — even simplified — our brains stop seeing "animation" and start seeing "behavior."
+</Callout>
+
+---
+
+## The 2.5D Layer
+
+Flat orbits felt predictable. Adding a Z-axis changed everything.
+
+**Foreground stars** glow, cast box-shadows, respond to hover. **Background stars** fade to near-invisible, creating parallax. And a subtle **Lissajous wobble** makes each path slightly irregular — like gravitational tugs from unseen bodies:
+
+```typescript
+const y = rawZ * 20 * Math.sin(star.inclination)
+    + Math.sin(theta * 1.3 + star.nodeAngle) * 12   // primary wobble
+    + Math.cos(theta * 0.7 + star.nodeAngle * 2) * 5 // secondary wobble
+```
+
+Three lines of math. Remove them and the motion immediately feels sterile. Keep them and most users won't consciously notice — but the sky *feels* organic.
+
+---
+
+## Interaction: Stars You Can Touch
+
+### Hover Pause
+
+Hover a foreground star and two things happen:
+
+1. **The entire sky freezes** — all motion stops
+2. **A tooltip card appears** with the star's identity
+
+The pause is deliberate. A moment of stillness in a constantly-moving scene. It says: *this one matters.*
+
+![Hovering a star pauses the sky and reveals its identity](/images/lab/star-map/tooltip-hover.png)
+
+### The Pointer-Events Trick
+
+The star map sits *behind* the hero text. Text must be readable. Stars must be hoverable. These conflict.
+
+The fix is CSS layering:
+
+```css
+.hero-content {
+    pointer-events: none;   /* mouse passes through text */
+}
+.hero-buttons {
+    pointer-events: auto;   /* buttons stay clickable */
+}
+```
+
+Your cursor passes through the title and reaches the stars behind it. Only buttons intercept. Feels magical.
+
+---
+
+## One Sky, Every Screen
+
+The hardest part wasn't the math — it was the phone.
+
+On desktop, stars orbit wide with `overflow-visible`, extending beyond their column. On a 375px screen, that same behavior creates a horizontal scrollbar.
+
+The solution: **one component, responsive container** — no conditional rendering, no separate mobile build.
+
+```html
+<div class="
+    absolute inset-0 overflow-hidden
+    lg:relative lg:overflow-visible lg:min-h-[500px]
+">
+```
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8 not-prose">
+    <div>
+        <img src="/images/lab/star-map/tablet-view.png" alt="Tablet view" class="rounded-xl border border-white/10" />
+        <p class="text-sm text-slate-400 text-center mt-2">Tablet — atmospheric background</p>
+    </div>
+    <div>
+        <img src="/images/lab/star-map/mobile-view.png" alt="Mobile view" class="rounded-xl border border-white/10" />
+        <p class="text-sm text-slate-400 text-center mt-2">Mobile — clean, no scrollbar</p>
+    </div>
+</div>
+
+**Mobile**: absolute background, `overflow-hidden` clips at container edge.
+**Desktop**: grid column, `overflow-visible` lets stars roam free. Page-level `overflow-x-hidden` catches them at the viewport.
+
+Same animation. Same component. CSS does the rest.
+
+---
+
+## Performance: 60fps with 125 Elements
+
+Setting `left` and `top` every frame forces the browser to recalculate layout — 125 elements × 60fps = **7,500 layout passes per second**. That's jank.
+
+The fix: `transform: translate()`. Transforms skip layout entirely and run on the GPU.
+
+```typescript
+// ❌ Layout reflow every frame
+el.style.left = `calc(50% + ${x}%)`;
+
+// ✅ GPU compositing only
+el.style.transform = `translate(${tx}px, ${ty}px)`;
+```
+
+Container dimensions are cached via `ResizeObserver` — no DOM queries inside the animation loop.
+
+<Callout type="tip" title="Rule of thumb">
+Animate with `transform`. Measure with `ResizeObserver`. Never read layout properties inside `requestAnimationFrame`.
+</Callout>
+
+---
+
+## What's Next
+
+- **Click a star → enter its constellation** (topic page)
+- **Dynamic data** — stars generated from content, not hardcoded
+- **Constellation lines** — connections between related stars
+
+The sky is literally not the limit.
+
+---
+
+*Built with React, TypeScript, and an unreasonable amount of time watching dots move across a screen.*

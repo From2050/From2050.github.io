@@ -153,12 +153,29 @@ export default function StarMap() {
         return [...bgStars, ...majorStars];
     }, []);
 
-    // ─── Animation loop: direct DOM updates ───
+    // ─── Cache container dimensions (ResizeObserver, not per-frame reads) ───
+    const containerSizeRef = useRef({ w: 1200, h: 600 });
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+        const ro = new ResizeObserver(([entry]) => {
+            containerSizeRef.current = {
+                w: entry.contentRect.width,
+                h: entry.contentRect.height,
+            };
+        });
+        ro.observe(el);
+        containerSizeRef.current = { w: el.clientWidth, h: el.clientHeight };
+        return () => ro.disconnect();
+    }, []);
+
+    // ─── Animation loop: GPU-only transform, no layout reflow ───
     const animate = useCallback(() => {
         if (!isPausedRef.current) {
             rotationRef.current += 0.0005;
         }
         const rot = rotationRef.current;
+        const cw = containerSizeRef.current.w;
 
         stars.forEach((star) => {
             const el = starRefsMap.current.get(star.id);
@@ -168,25 +185,25 @@ export default function StarMap() {
             const theta = star.angle + rot * star.speed;
 
             // ─── Elliptical orbit with eccentricity ───
-            // r = a(1 - e²) / (1 + e·cos(θ))  (simplified Kepler)
             const e = star.eccentricity;
             const r = star.radius * (1 - e * e) / (1 + e * Math.cos(theta));
 
             const rawX = Math.cos(theta) * r;
             const rawZ = Math.sin(theta) * r;
 
-            const x = rawX * 25;
-            const y = rawZ * 20 * Math.sin(star.inclination)
-                + Math.sin(theta * 1.3 + star.nodeAngle) * 12  // Lissajous wobble
-                + Math.cos(theta * 0.7 + star.nodeAngle * 2) * 5; // Secondary wobble
+            // 25% of container width as spread (matches original calc(50% + X%))
+            const tx = rawX * cw * 0.25;
+            const ty = rawZ * 20 * Math.sin(star.inclination)
+                + Math.sin(theta * 1.3 + star.nodeAngle) * 12
+                + Math.cos(theta * 0.7 + star.nodeAngle * 2) * 5;
             const z = rawZ * 10 * Math.cos(star.inclination);
 
             const opacity = Math.max(0.08, (z + 50) / 70);
             const zIndex = Math.max(0, Math.min(5, Math.floor((z + 20) / 10)));
             const isForeground = z > -15;
 
-            el.style.left = `calc(50% + ${x}%)`;
-            el.style.top = `calc(50% + ${y}px)`;
+            // GPU compositing only — no layout reflow
+            el.style.transform = `translate(${tx}px, ${ty}px)`;
             el.style.opacity = String(opacity);
             el.style.zIndex = String(zIndex);
 
@@ -249,7 +266,7 @@ export default function StarMap() {
     return (
         <div
             ref={containerRef}
-            className="relative w-full h-full min-h-[500px] flex items-center justify-center overflow-visible"
+            className="absolute inset-0"
             style={{ zIndex: 0 }}
         >
             <div className="absolute w-1 h-1 bg-white/5 rounded-full blur-sm" />
@@ -263,10 +280,13 @@ export default function StarMap() {
                         ref={(el) => { if (el) starRefsMap.current.set(star.id, el); }}
                         className="absolute rounded-full pointer-events-none"
                         style={{
+                            left: '50%',
+                            top: '50%',
                             width: star.size,
                             height: star.size,
                             backgroundColor: star.color,
                             boxShadow: isInteractive ? `0 0 8px ${star.color}` : 'none',
+                            willChange: 'transform, opacity',
                         }}
                     >
                         {isInteractive && (
