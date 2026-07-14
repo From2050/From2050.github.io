@@ -7,9 +7,8 @@ site hosted on GitHub Pages at [chiehnengwu.dev](https://chiehnengwu.dev).
 
 | File | Purpose |
 |---|---|
-| `index.html` | All content (hero, experience, case studies, debug stories, skills, contact) |
-| `assets/style.css` | Visual design (dark theme, responsive, print styles) |
-| `assets/site.js` | Mobile nav toggle, scroll-reveal, footer year |
+| `index.html` | All content (intro, experience, case studies, debug stories, skills, contact) |
+| `assets/style.css` | Visual design (light/dark via `prefers-color-scheme`, responsive, print styles) |
 | `assets/favicon.svg` | Chip-icon favicon |
 | `CNAME` | Custom domain for GitHub Pages |
 | `.nojekyll` | Skip Jekyll processing |
