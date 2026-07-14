@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>個人履歷與作品集</title>
+    <meta name="description" content="個人履歷與作品集展示頁" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="container">
+        <p class="eyebrow">From2050</p>
+        <h1>你的名字</h1>
+        <p class="subtitle">前端工程師／全端開發者（可自行修改）</p>
+        <p>
+          專注於打造清晰、易用、可維護的網站與產品體驗，歡迎在此快速了解我的背景與作品。
+        </p>
+        <a class="button" href="#projects">查看作品</a>
+      </div>
+    </header>
+
+    <main>
+      <section id="about" class="section container">
+        <h2>關於我</h2>
+        <p>
+          這裡填寫你的個人簡介：目前身份、專長領域、工作年資，以及你想解決的問題。
+        </p>
+      </section>
+
+      <section id="resume" class="section container">
+        <h2>履歷重點</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>工作經歷</h3>
+            <ul>
+              <li>公司 A｜職稱｜2024 - 至今</li>
+              <li>公司 B｜職稱｜2021 - 2024</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>技能</h3>
+            <ul>
+              <li>HTML / CSS / JavaScript / TypeScript</li>
+              <li>React / Node.js / API 設計</li>
+              <li>Git / CI / 測試與部署流程</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>教育背景</h3>
+            <ul>
+              <li>學校名稱｜科系｜畢業年份</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects" class="section container">
+        <h2>作品集</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>專案一：電商平台</h3>
+            <p>負責前端架構與效能優化，將首頁載入時間縮短 35%。</p>
+            <a href="#" aria-label="查看專案一">查看專案</a>
+          </article>
+          <article class="card">
+            <h3>專案二：資料儀表板</h3>
+            <p>建立互動式圖表與資料篩選，提升團隊分析效率。</p>
+            <a href="#" aria-label="查看專案二">查看專案</a>
+          </article>
+          <article class="card">
+            <h3>專案三：個人品牌網站</h3>
+            <p>設計完整內容架構與 SEO 基礎設定，強化線上能見度。</p>
+            <a href="#" aria-label="查看專案三">查看專案</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="section container">
+        <h2>聯絡方式</h2>
+        <p>📧 your.email@example.com</p>
+        <p>🔗 LinkedIn / GitHub / 個人網站連結</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <small>© <span id="year"></span> 你的名字. All rights reserved.</small>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
