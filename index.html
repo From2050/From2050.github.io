@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jay Wu — Hardware &amp; Embedded Systems Engineer</title>
+  <meta name="description" content="Jay Wu (Chieh-Neng Wu) — engineer working across RTL design, FPGA prototyping, post-silicon bring-up, embedded Linux, and edge ML. Based in Ottawa, Canada.">
+  <meta name="author" content="Chieh-Neng Wu">
+  <link rel="canonical" href="https://chiehnengwu.dev/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Jay Wu — Hardware &amp; Embedded Systems Engineer">
+  <meta property="og:description" content="RTL design, FPGA prototyping, post-silicon bring-up, embedded Linux, and edge ML.">
+  <meta property="og:url" content="https://chiehnengwu.dev/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Chieh-Neng Wu",
+    "alternateName": "Jay Wu",
+    "url": "https://chiehnengwu.dev",
+    "email": "mailto:jay@chiehnengwu.dev",
+    "jobTitle": "Hardware / Embedded Systems Engineer",
+    "address": { "@type": "PostalAddress", "addressLocality": "Ottawa", "addressCountry": "Canada" },
+    "alumniOf": "National Yang Ming Chiao Tung University",
+    "sameAs": ["https://github.com/From2050"]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="#top">chiehnengwu.dev</a>
+    <nav aria-label="Primary">
+      <a href="#experience">experience</a>
+      <a href="#work">work</a>
+      <a href="#stories">debug stories</a>
+      <a href="#skills">skills</a>
+      <a href="#contact">contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <section class="intro" id="top">
+      <h1>Jay Wu <span class="alt-name">· Chieh-Neng Wu</span></h1>
+      <p class="role">Hardware &amp; embedded systems engineer</p>
+      <p>
+        6+ years across RTL design, SoC-to-FPGA prototyping, post-silicon bring-up,
+        embedded Linux, and edge ML. My RTL has gone into fabricated respin silicon;
+        I then owned the bring-up that proved that silicon worked, and wrote the
+        drivers and features that ran on top. The connective tissue is cross-layer
+        debugging — problems that could live in the RTL, the constraints, the firmware,
+        the power rail, or the kernel config.
+      </p>
+      <p class="meta">
+        Ottawa, Canada &nbsp;·&nbsp;
+        <a href="mailto:jay@chiehnengwu.dev">jay@chiehnengwu.dev</a> &nbsp;·&nbsp;
+        <a href="https://github.com/From2050" target="_blank" rel="noopener">github.com/From2050</a>
+      </p>
+      <p class="range">RTL → FPGA prototyping → post-silicon bring-up → embedded Linux → drivers → edge ML</p>
+
+      <ul class="highlights">
+        <li><strong>~20%</strong> of marginally-failing silicon units recovered by a DDR-sweep tool I built</li>
+        <li><strong>4K@30fps</strong> validated on the MIPI path of a camera ASIC I brought up solo</li>
+        <li><strong>1 respin ASIC</strong> in working silicon carrying an RTL module I designed</li>
+        <li><strong>33-subject</strong> statistical validation of an INT8 edge-ML model on ESP32-S3</li>
+      </ul>
+    </section>
+
+    <section class="section" id="experience">
+      <h2>Experience</h2>
+
+      <article class="entry">
+        <div class="entry-meta">
+          <span class="dates">2023 – 2026</span>
+          <span class="place">Taoyuan, Taiwan</span>
+        </div>
+        <div class="entry-body">
+          <h3>Senior Logic Engineer — Ultracker</h3>
+          <p>
+            Camera ASIC (UX720V6 / Aleta S3): designed an image-composition RTL module that
+            went into the respin silicon, then solo-owned post-silicon bring-up — test planning,
+            validation-board revision, MIPI/DDR tuning tools, and a register-level control driver
+            verified to images landing in DDR. Also owned an embedded Linux board bring-up on a
+            partner product line, wrote an IMU driver with an end-to-end EIS feature, and enabled
+            an edge-AI pipeline on RK3588.
+          </p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="entry-meta">
+          <span class="dates">2021 – 2026</span>
+          <span class="place">Hsinchu, Taiwan</span>
+        </div>
+        <div class="entry-body">
+          <h3>M.S. Electrical &amp; Control Engineering — NYCU</h3>
+          <p>
+            Thesis: a 32-channel pressure-sensing system for non-contact heart-rate and
+            respiration monitoring — hardware through embedded acquisition, ML pipeline, and
+            INT8 edge deployment on ESP32-S3, validated with leave-one-subject-out
+            cross-validation across 33 subjects. Earlier research: multi-modal EEG/EMG/insole
+            sensing, where I resolved an ESP32 throughput bottleneck with a dual-bridge data path.
+          </p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="entry-meta">
+          <span class="dates">2019 – 2021</span>
+          <span class="place">Hsinchu, Taiwan</span>
+        </div>
+        <div class="entry-body">
+          <h3>FPGA Integration Engineer — MediaTek</h3>
+          <p>
+            SoC-to-FPGA prototyping for the Dimensity 700 5G smartphone SoC on Synopsys
+            HAPS-80/100: adapted SoC RTL partitions for the FPGA target across CPU, memory, and
+            multimedia subsystems, handled clock/reset and timing constraints, and debugged
+            mismatches between firmware expectations and hardware behavior. Built Perl automation
+            that kept RTL register maps in sync with SoC CSVs — saving 1–2 weeks of cross-team
+            debugging per project cycle.
+          </p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="entry-meta">
+          <span class="dates">2017 – 2019</span>
+          <span class="place">Taoyuan, Taiwan</span>
+        </div>
+        <div class="entry-body">
+          <h3>Logic Design Engineer — Ultracker</h3>
+          <p>
+            Block-level RTL for the Aleta S2C 360° camera platform on Xilinx FPGAs: ISP blocks
+            (RGB binning, WDR/HDR), DMA against an internal DDR controller, CDC handling, DDR3
+            auto-refresh for low-power transitions, five-lens synchronization — and an H.264
+            pipeline extension from 240×180 to 4K.
+          </p>
+        </div>
+      </article>
+
+      <article class="entry">
+        <div class="entry-meta">
+          <span class="dates">2012 – 2016</span>
+          <span class="place">Chiayi, Taiwan</span>
+        </div>
+        <div class="entry-body">
+          <h3>B.S. Electrical Engineering — National Chiayi University</h3>
+          <p>
+            Co-authored undergraduate research on a turbidity-meter voltage-to-frequency
+            converter chip, published in the <em>IEEE Sensors Journal</em>.
+          </p>
+        </div>
+      </article>
+    </section>
+
+    <section class="section" id="work">
+      <h2>Selected work</h2>
+      <p class="section-note">Proprietary details are abstracted; scope and ownership are stated as they actually were.</p>
+
+      <article class="case">
+        <h3>Post-silicon bring-up of a camera ASIC — from untested silicon to images in DDR <span class="tag">solo ownership</span></h3>
+        <p>
+          Respin silicon for the UX720V6 (Aleta S3) camera ASIC came back from the fab — hundreds
+          of engineering units that had never been powered on. I owned the whole chain: test
+          planning, revising the validation board, a voltage-aware MIPI delay-scan utility (Python)
+          to find stable operating points, and a DDR sweep utility (C) integrated into the boot and
+          mode-switching sequence to find per-unit optimal timing dynamically. Delivered a
+          register-level control driver on top of the ASIC's hardware control block.
+        </p>
+        <ul class="outcomes">
+          <li>~20% of marginally-failing units recovered by the DDR sweep</li>
+          <li>4K@30+fps stable on the 4-lane configurable MIPI TX/RX path</li>
+          <li>Verified end-to-end: captured images landing in DDR — the full loop, not half of it</li>
+        </ul>
+      </article>
+
+      <article class="case">
+        <h3>An image-composition RTL module in respin silicon</h3>
+        <p>
+          After the first UX720V6 tape-out failed, the company respun the mask. I designed and
+          added an image-composition RTL module into the respin — the re-fabricated chips came
+          back, were brought up, and ran. Not "taped out": my RTL is in working physical silicon.
+        </p>
+      </article>
+
+      <article class="case">
+        <h3>Dimensity 700 on HAPS: prototyping a production SoC for firmware teams</h3>
+        <p>
+          At MediaTek, adapted SoC RTL partitions to FPGA targets through platform generations —
+          early CPU/SRAM/MMU porting to full multimedia integration. Down-clocked clock domains,
+          partitioned critical modules, managed the CDC/RDC risks the adaptation itself introduces,
+          and cleaned constraint sets so the timing tools worked real paths instead of false ones
+          (ProtoCompiler, SpyGlass, Vivado).
+        </p>
+      </article>
+
+      <article class="case">
+        <h3>Embedded Linux bring-up: our ASIC on a third-party SoC, to first image</h3>
+        <p>
+          On a partner product line, integrated our camera ASIC onto an Anyka SoC — from the vendor
+          BSP up through SPI-based ASIC control and the MIPI data path back to the CPU, to the
+          first captured image. Vendor BSP as the base; the integration and bring-up were mine.
+        </p>
+      </article>
+
+      <article class="case">
+        <h3>IMU driver + electronic image stabilization, raw data to coordinates</h3>
+        <p>
+          Wrote the IMU driver and owned the EIS feature end-to-end: IMU raw data through the
+          stabilization algorithm to output coordinates, mapped onto the platform's existing PTZ
+          coordinate system, delivered as a working feature. Separately enabled an edge-AI
+          image-recognition pipeline on RK3588 and handed it off to the Linux team.
+        </p>
+      </article>
+
+      <article class="case">
+        <h3>Edge ML with statistics behind it: 32-channel sensing on ESP32-S3</h3>
+        <p>
+          Built a 32-channel pressure-sensing system end-to-end for non-contact heart-rate and
+          respiration monitoring: hardware, embedded acquisition, CNN/Transformer models, and INT8
+          ONNX quantization deployed on ESP32-S3. Validated with leave-one-subject-out
+          cross-validation across 33 subjects; a Wilcoxon signed-rank test confirmed quantization
+          preserved accuracy. Firmware, ML code, and data are
+          <a href="https://github.com/From2050" target="_blank" rel="noopener">open-sourced</a>.
+        </p>
+      </article>
+    </section>
+
+    <section class="section" id="stories">
+      <h2>Debug stories</h2>
+      <p class="section-note">Three bugs that didn't live where they seemed to — told the way they happened.</p>
+
+      <article class="story">
+        <h3>The corruption that only appeared in sunlight</h3>
+        <dl class="story-log">
+          <div><dt>Symptom</dt><dd>After extending a decade-old H.264 module from 240×180 to 4K — simulation clean, FPGA tests clean — the field reported random image corruption. Outdoors. And the brighter the scene, the sooner it broke.</dd></div>
+          <div><dt>Investigation</dt><dd>Brightness-correlated failure smells data-dependent. I captured the offending images, replayed them in simulation, and traced the pipeline.</dd></div>
+          <div><dt>Root cause</dt><dd>A register accumulating pixel data overflowed at high luminance. Normal-case simulation could never hit it; real 4K sunlight did. Widened the register — fixed.</dd></div>
+          <div><dt>Lesson</dt><dd>Video pipelines must be simulated at worst-case data patterns, not just typical frames. "Passed sim" is a statement about your stimulus, not your design.</dd></div>
+        </dl>
+      </article>
+
+      <article class="story">
+        <h3>Not an RTL bug. Not a firmware bug.</h3>
+        <dl class="story-log">
+          <div><dt>Symptom</dt><dd>Firmware reported the FPGA prototype misbehaving. RTL simulation said the design was fine; the designer agreed.</dd></div>
+          <div><dt>Investigation</dt><dd>Added internal logic-analyzer probes — hardware matched the RTL exactly. So I pulled the RTL designer, the firmware owner, and the prototype view into one room and diffed assumptions instead of code.</dd></div>
+          <div><dt>Root cause</dt><dd>A hardware configuration had changed in the latest version; the firmware's header still described the old one. A version mismatch living between two teams' correct code.</dd></div>
+          <div><dt>Lesson</dt><dd>I extended our Perl header-generation flow with an automatic cross-check so the mismatch class gets caught at generation time — turning one debug into a permanent fix.</dd></div>
+        </dl>
+      </article>
+
+      <article class="story">
+        <h3>The DDR bug that lived in the power rail</h3>
+        <dl class="story-log">
+          <div><dt>Symptom</dt><dd>Post-silicon, intermittent failures that looked exactly like DDR instability — the kind of symptom that invites weeks of retraining timing parameters.</dd></div>
+          <div><dt>Investigation</dt><dd>We refused to lock onto the first plausible suspect: checked DDR config, clocks and PLLs, then put a scope on the power tree.</dd></div>
+          <div><dt>Root cause</dt><dd>Abnormal ripple on a PMIC output. The root cause was power configuration and behavior — the DDR datapath was innocent.</dd></div>
+          <div><dt>Lesson</dt><dd>Classify the problem and collect evidence across layers before committing to the obvious one. Intermittent ≠ random; it means you haven't found the variable yet.</dd></div>
+        </dl>
+      </article>
+    </section>
+
+    <section class="section" id="skills">
+      <h2>Skills</h2>
+      <dl class="skills">
+        <div>
+          <dt>RTL &amp; FPGA</dt>
+          <dd>Verilog · block-level RTL (ISP, DMA, H.264, image composition) · SoC-to-FPGA partition adaptation · timing closure &amp; SDC constraints · CDC/RDC · Synopsys HAPS-80/100 · ProtoCompiler · SpyGlass · Vivado</dd>
+        </div>
+        <div>
+          <dt>Silicon validation &amp; bring-up</dt>
+          <dd>Post-silicon bring-up · validation-board revision · MIPI TX/RX (multi-lane) · DDR training &amp; sweep tooling · PMIC / power integrity · oscilloscope-driven diagnosis · register-level control drivers · boot-sequence integration</dd>
+        </div>
+        <div>
+          <dt>Embedded software</dt>
+          <dd>C / C++ · embedded Linux board bring-up · vendor BSP integration · device tree · SPI / I2C / UART · sensor drivers (IMU) · ESP32 / FreeRTOS · real-time data paths &amp; throughput debugging</dd>
+        </div>
+        <div>
+          <dt>Edge ML &amp; tooling</dt>
+          <dd>Python · Perl / Tcl automation · CNN &amp; Transformer models · INT8 ONNX quantization · edge deployment (ESP32-S3, RK3588) · LOSO cross-validation · statistical testing (Wilcoxon) · signal processing</dd>
+        </div>
+      </dl>
+      <p class="pub">Publication — co-author, turbidity-meter voltage-to-frequency converter chip, <em>IEEE Sensors Journal</em>.</p>
+    </section>
+
+    <section class="section" id="contact">
+      <h2>Contact</h2>
+      <p>
+        Based in Ottawa, Canada — open to FPGA, ASIC validation / bring-up, embedded systems, and
+        system-integration roles. Email is the reliable channel:
+        <a href="mailto:jay@chiehnengwu.dev">jay@chiehnengwu.dev</a>, or find me on
+        <a href="https://github.com/From2050" target="_blank" rel="noopener">GitHub</a>.
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="year">2026</span> Chieh-Neng (Jay) Wu · static site, no trackers</p>
+  </footer>
+
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+</body>
+</html>
