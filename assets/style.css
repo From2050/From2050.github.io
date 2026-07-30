@@ -344,6 +344,21 @@ body.home { max-width: 880px; }
   padding: 22px; text-align: center;
 }
 
+/* ---------- Instagram oEmbed ---------- */
+/* Instagram's own widget is always a white card (its iframe, its rules) —
+   frame it in a themed backdrop so that's a choice, not a mismatch. */
+
+.ig-embed-list {
+  display: flex; flex-wrap: wrap; gap: 16px;
+}
+.ig-embed-card {
+  background: var(--code-bg); border: 1px solid var(--line); border-radius: 10px;
+  padding: 12px; display: flex; justify-content: center;
+}
+.ig-embed-card .instagram-media {
+  margin: 0 !important; /* IG's inline style sets margin:1px; let the card own the spacing */
+}
+
 /* ---------- articles ---------- */
 
 .article-item {

@@ -123,6 +123,47 @@
     });
   }
 
+  /* ---------- Instagram oEmbed (manual, no API token needed) ----------
+     Renders the official IG embed widget for hand-picked post URLs.
+     Independent of the auto-fetched feed (data/feeds.json): once an
+     INSTAGRAM_TOKEN is configured, real posts start appearing there too,
+     and this section can keep serving as a pinned/curated list or be
+     emptied out — no code change needed either way. */
+
+  function loadInstagramEmbedScript() {
+    if (window.instgrm) { window.instgrm.Embeds.process(); return; }
+    if (document.getElementById("ig-embed-script")) return;
+    var s = document.createElement("script");
+    s.id = "ig-embed-script";
+    s.async = true;
+    s.src = "https://www.instagram.com/embed.js";
+    document.body.appendChild(s);
+  }
+
+  function renderInstagramEmbeds(urls) {
+    var section = document.getElementById("ig-embeds");
+    var list = (urls || []).filter(Boolean);
+    if (!list.length) { section.remove(); return; }
+
+    var wrap = document.getElementById("ig-embed-list");
+    list.forEach(function (url) {
+      var card = el("div", "ig-embed-card");
+      var bq = document.createElement("blockquote");
+      bq.className = "instagram-media";
+      bq.setAttribute("data-instgrm-permalink", url);
+      bq.setAttribute("data-instgrm-version", "14");
+      var fallback = el("a", null, "在 Instagram 查看這則貼文");
+      fallback.href = url;
+      fallback.target = "_blank";
+      fallback.rel = "noopener";
+      bq.appendChild(fallback);
+      card.appendChild(bq);
+      wrap.appendChild(card);
+    });
+
+    loadInstagramEmbedScript();
+  }
+
   /* ---------- feed ---------- */
 
   function renderFeed(feed, socials) {
@@ -197,6 +238,7 @@
       renderProfile(links.profile);
       renderSocials(links.socials);
       renderProjects(links.projects);
+      renderInstagramEmbeds(links.instagramEmbeds);
       renderArticles(links.articles);
       renderFeed(feed, links.socials);
     });

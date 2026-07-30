@@ -23,7 +23,8 @@ Personal site for **Jay Wu (Chieh-Neng Wu)**, hosted on GitHub Pages at
 | `CNAME` | Custom domain for GitHub Pages |
 | `.nojekyll` | Skip Jekyll processing |
 
-No build step, no frameworks, no trackers.
+No build step, no frameworks. No third-party scripts either, *unless*
+`instagramEmbeds` in `data/links.json` is non-empty — see below.
 
 ## Editing the homepage
 
@@ -68,6 +69,35 @@ workflow still runs but only reports — the tokens would then need replacing by
 hand every 60 days.
 
 Run either workflow immediately from the **Actions** tab via *Run workflow*.
+
+## 精選 Instagram 貼文
+
+The auto-fetched feed above needs `INSTAGRAM_TOKEN` to show Instagram posts.
+Until that's set up — or for posts worth pinning even after it is — add the
+post's plain URL to `instagramEmbeds` in `data/links.json`:
+
+```json
+"instagramEmbeds": [
+  "https://www.instagram.com/p/POST_SHORTCODE/",
+  "https://www.instagram.com/reel/REEL_SHORTCODE/"
+]
+```
+
+This uses Instagram's official oEmbed widget (the same thing their own
+"Embed" button on a post produces) — no API, no token, no app review, works
+for any public post immediately. The trade-off: it only shows the exact posts
+listed here, it never updates itself when you post something new, and the
+card is Instagram's own fixed white-background design (framed here in a
+themed card so it doesn't look like a mismatch in dark mode).
+
+It also loads `instagram.com/embed.js` — a Meta-controlled script — but only
+on pages where `instagramEmbeds` is non-empty; leave the array empty and the
+page stays script-free.
+
+Once `INSTAGRAM_TOKEN` is live, real posts start appearing in the automated
+`最新動態` feed above with no further action. `instagramEmbeds` is independent
+of that — keep it as a pinned/curated shelf, or empty the array; either way
+needs no code change.
 
 ### Testing the fetcher locally
 
