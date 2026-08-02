@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "js-yaml": "^5.2.3"
+  },
+  "name": "chiehnengwu-dev",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve"
+  }
+}

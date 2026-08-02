@@ -1,0 +1,55 @@
+name: Build and deploy
+
+# Publishes the 11ty build to GitHub Pages. The repository's Pages source must
+# be set to "GitHub Actions" (Settings → Pages → Build and deployment).
+#
+# Because the build runs here and not on anyone's machine, nobody editing
+# content ever needs Node installed — and a build that fails leaves the last
+# successful deployment live instead of breaking the site for visitors.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Fail if the build produced no pages
+        run: |
+          test -f _site/index.html || { echo "_site/index.html missing"; exit 1; }
+          test -f _site/CNAME || { echo "_site/CNAME missing — custom domain would break"; exit 1; }
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

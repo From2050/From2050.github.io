@@ -1,0 +1,15 @@
+# Site-wide settings. Everything here is public.
+url: https://chiehnengwu.dev
+lang: zh-Hant
+title: Jay Wu · 巫傑能
+description: Jay Wu (巫傑能) — hardware & embedded systems engineer. 作品、文章與社群動態。
+ogImage: /assets/og.png
+nav:
+  - label: 作品
+    href: "/#work"
+  - label: 動態
+    href: "/#feed"
+  - label: 文章
+    href: "/#articles"
+  - label: 履歷
+    href: /resume/

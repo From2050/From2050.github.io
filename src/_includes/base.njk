@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="{{ pageLang or site.lang }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title or site.title }}</title>
+  <meta name="description" content="{{ description or site.description }}">
+  <meta name="author" content="{{ profile.altName or profile.name }}">
+  <link rel="canonical" href="{{ page.url | absoluteUrl(site.url) }}">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="{{ ogType or 'website' }}">
+  <meta property="og:title" content="{{ title or site.title }}">
+  <meta property="og:description" content="{{ description or site.description }}">
+  <meta property="og:url" content="{{ page.url | absoluteUrl(site.url) }}">
+  <meta property="og:image" content="{{ site.ogImage | absoluteUrl(site.url) }}">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/style.css">
+  {{ extraHead | safe }}
+</head>
+<body class="{{ bodyClass }}">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="/">{% if page.url != "/" %}← {% endif %}chiehnengwu.dev</a>
+    <nav aria-label="Primary">
+      {%- for item in (navItems or site.nav) %}
+      <a href="{{ item.href }}">{{ item.label }}</a>
+      {%- endfor %}
+    </nav>
+  </header>
+
+  <main id="main">
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <p>© {{ buildYear }} {{ profile.altName or profile.name }} · <a href="/resume/">履歷</a> · static site</p>
+  </footer>
+
+  {{ extraScripts | safe }}
+</body>
+</html>

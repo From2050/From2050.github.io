@@ -1,0 +1,20 @@
+- title: 32-channel pressure sensing + edge ML
+  description: 非接觸式心率／呼吸監測系統,硬體到 ESP32-S3 上的 INT8 量化部署,33 位受試者 LOSO 交叉驗證。韌體、ML 程式與資料開源。
+  tags:
+    - ESP32-S3
+    - INT8 ONNX
+    - CNN/Transformer
+  url: https://github.com/From2050
+- title: Camera ASIC post-silicon bring-up
+  description: UX720V6 / Aleta S3 相機晶片從未上電的裸矽到影像存進 DDR,個人擁有整條鏈:測試規劃、驗證板改版、MIPI/DDR 調校工具、暫存器級控制驅動。
+  tags:
+    - post-silicon
+    - MIPI
+    - DDR sweep
+  url: /resume/#work
+- title: Image-composition RTL in respin silicon
+  description: 第一版 tape-out 失敗後,我設計的影像合成模組進了 respin 光罩,晶片回來成功 bring-up 並運作。
+  tags:
+    - Verilog
+    - ASIC respin
+  url: /resume/#work

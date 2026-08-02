@@ -1,7 +1,7 @@
 name: Add content from issue
 
 # Turns an issue opened with the "新增內容到首頁" form into a commit on
-# data/links.json, so curating the site needs nothing but a link — no JSON
+# src/content/*.yaml, so curating the site needs nothing but a link — no YAML
 # editing, and it works from a phone.
 
 on:
@@ -31,8 +31,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
-      - name: Apply the submission to data/links.json
+      - run: npm ci
+
+      - name: Apply the submission to the content files
         id: apply
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
@@ -42,13 +45,13 @@ jobs:
         env:
           SUMMARY: ${{ steps.apply.outputs.summary }}
         run: |
-          if git diff --quiet -- data/links.json; then
-            echo "links.json unchanged — nothing to commit."
+          if git diff --quiet -- src/content; then
+            echo "content unchanged — nothing to commit."
             exit 1
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/links.json
+          git add src/content
           git commit -m "content: $SUMMARY"
           git push
 
