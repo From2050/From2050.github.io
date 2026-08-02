@@ -17,21 +17,43 @@ Personal site for **Jay Wu (Chieh-Neng Wu)**, hosted on GitHub Pages at
 | `assets/favicon.svg` | Chip-icon favicon |
 | `data/links.json` | **Edit this** — profile, social links, projects, articles |
 | `data/feeds.json` | Auto-generated social posts; do not edit by hand |
+| `scripts/add-content.mjs` | Turns an issue-form submission into a `links.json` entry |
 | `scripts/fetch-feeds.mjs` | Fetches YouTube / Instagram / Threads posts |
 | `scripts/refresh-tokens.mjs` | Extends the Meta tokens before they expire |
-| `.github/workflows/` | Scheduled jobs that run the two scripts |
+| `.github/ISSUE_TEMPLATE/` | The "add content" form |
+| `.github/workflows/` | Jobs that run the scripts above |
 | `CNAME` | Custom domain for GitHub Pages |
 | `.nojekyll` | Skip Jekyll processing |
 
 No build step, no frameworks. No third-party scripts either, *unless*
 `instagramEmbeds` in `data/links.json` is non-empty — see below.
 
-## Editing the homepage
+## Adding content (the normal way)
 
-Everything visible on the homepage except the auto-fetched feed lives in
+**Open a new issue using the "新增內容到首頁" template.** Pick a type, paste a
+link, submit. A workflow validates it, commits `data/links.json`, redeploys the
+site, then comments and closes the issue — usually under a minute. It works from
+a phone, which is the point: curation that requires a laptop and hand-edited JSON
+doesn't survive contact with real life.
+
+If something is wrong with the submission — a duplicate post, a non-Instagram
+URL in the Instagram field, a missing title — nothing is committed and the issue
+gets a comment explaining why.
+
+Only issues opened by the repository owner are acted on. This repo is public, so
+without that check anyone could push content onto the live site.
+
+Ordering follows how the page reads: Instagram posts and articles are prepended
+(newest first), projects are appended, since that list is hand-ordered by
+significance.
+
+## Editing the homepage directly
+
+Everything on the homepage except the auto-fetched feed lives in
 `data/links.json`: profile text, avatar, which social links appear
-(`"enabled": true/false`), project cards, and the article list. Commit a change
-to that file and the page updates — no code changes needed.
+(`"enabled": true/false`), project cards, the article list, and pinned
+Instagram posts. Edit it directly when you need to reorder, reword, or delete —
+the issue form only appends.
 
 Empty sections hide themselves, so an empty `articles` array simply removes the
 文章 heading.
