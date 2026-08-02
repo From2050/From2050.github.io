@@ -1,0 +1,69 @@
+---
+layout: themes/gallery/base.njk
+permalink: /demo/gallery/
+title: 林珮珊 — 品牌設計師
+seoTitle: 展示架構示範 · 視覺系 Gallery
+description: 個人策展服務的展示架構示範 — 視覺系,適合設計師、插畫家、攝影師。
+---
+<div class="wrap">
+  <section class="hero">
+    <h1>{{ p.name }}<br>{{ p.headline }}<em>{{ p.headlineEm }}</em>。</h1>
+    <p class="hero-sub">{{ p.sub }}</p>
+    <p class="hero-meta">{{ p.meta }}</p>
+  </section>
+
+  <section id="work" class="work-grid">
+    <a class="work-card span-4" href="/demo/gallery/work/shanhai-tea/">
+      <div class="work-tile tile-tea"><span class="glyph">茶</span><span class="stamp">山海</span></div>
+      <div class="work-cap"><b>山海製茶 — 品牌識別</b><span>BRANDING</span></div>
+    </a>
+    <a class="work-card span-2" href="/demo/gallery/work/fuyu-festival/">
+      <div class="work-tile tile-fest"><span class="v-title">浮<br>嶼<br>祭</span></div>
+      <div class="work-cap"><b>浮嶼音樂節</b><span>KEY VISUAL</span></div>
+    </a>
+    <a class="work-card" href="/demo/gallery/work/shanhai-tea/">
+      <div class="work-tile tile-soup">
+        <div class="label-mock"><b>日日湯</b><span>DAILY SOUP CO.</span></div>
+      </div>
+      <div class="work-cap"><b>日日湯 — 包裝系列</b><span>PACKAGING</span></div>
+    </a>
+    <a class="work-card" href="/demo/gallery/work/fuyu-festival/">
+      <div class="work-tile tile-app">
+        <div class="ui-frame">
+          <div class="bar"><i></i><i></i><i></i></div>
+          <div class="body"><div class="row hero"></div><div class="row"></div><div class="row"></div><div class="row half"></div></div>
+        </div>
+      </div>
+      <div class="work-cap"><b>Kite 理財 App</b><span>UI DESIGN</span></div>
+    </a>
+    <a class="work-card" href="/demo/gallery/work/shanhai-tea/">
+      <div class="work-tile tile-illu"><i></i><i></i><i></i><i></i></div>
+      <div class="work-cap"><b>圓圓相扣 — 插畫商品</b><span>ILLUSTRATION</span></div>
+    </a>
+    <a class="work-card" href="/demo/gallery/work/fuyu-festival/">
+      <div class="work-tile tile-photo"><span class="moon"></span></div>
+      <div class="work-cap"><b>夜行 — 個人攝影計畫</b><span>PHOTOGRAPHY</span></div>
+    </a>
+  </section>
+
+  <section id="about" class="social-strip">
+    <div>
+      <b class="handle">{{ p.social.handle }}</b>
+      <span class="note">{{ p.social.note }}</span>
+    </div>
+    <div class="thumbs">
+      <a href="{{ p.social.url }}" class="ig1" aria-label="Instagram 貼文"></a>
+      <a href="{{ p.social.url }}" class="ig2" aria-label="Instagram 貼文"></a>
+      <a href="{{ p.social.url }}" class="ig3" aria-label="Instagram 貼文"></a>
+      <a href="{{ p.social.url }}" class="ig4" aria-label="Instagram 貼文"></a>
+    </div>
+  </section>
+
+  <section id="contact" class="cta">
+    <div>
+      <b>{{ p.contact.heading }}</b>
+      <span>{{ p.contact.note }} · {{ p.contact.email }}</span>
+    </div>
+    <a class="btn" href="mailto:{{ p.contact.email }}">{{ p.contact.cta }}</a>
+  </section>
+</div>

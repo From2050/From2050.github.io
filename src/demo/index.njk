@@ -1,0 +1,97 @@
+---
+layout: shell.njk
+theme: journal
+permalink: /demo/
+title: 展示架構示範
+description: 個人策展服務的三種網站展示架構 — 視覺系、舞台系、誌面系,共用同一套內容結構。
+eleventyExcludeFromCollections: true
+extraHead: |
+  <style>
+    body.demo-index { max-width: 900px; margin: 0 auto; padding: 0 24px 80px; }
+    .demo-lede { padding: 56px 0 8px; }
+    .demo-lede h1 { font-size: 1.9rem; margin-bottom: 14px; }
+    .demo-lede p { color: var(--text-dim); max-width: 44em; }
+    .demo-lede .why {
+      margin-top: 20px; padding: 16px 20px; background: var(--code-bg);
+      border-radius: 10px; font-size: .92rem; color: var(--text-dim);
+    }
+    .demo-grid { display: grid; gap: 18px; margin-top: 40px; }
+    .demo-card {
+      border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+      display: grid; grid-template-columns: 150px 1fr; align-items: stretch;
+      color: inherit; text-decoration: none;
+      transition: border-color .15s ease, transform .15s ease;
+    }
+    .demo-card:hover { border-color: var(--accent); transform: translateY(-2px); text-decoration: none; }
+    .swatch { display: flex; flex-direction: column; }
+    .swatch i { flex: 1; }
+    .demo-card .meat { padding: 22px 24px; }
+    .demo-card h2 { font-size: 1.1rem; border: 0; padding: 0; margin: 0 0 6px; }
+    .demo-card h2::before { content: none; }
+    .demo-card .who {
+      font-family: var(--font-mono); font-size: .72rem; color: var(--accent);
+      letter-spacing: .06em; margin-bottom: 10px;
+    }
+    .demo-card p { font-size: .89rem; color: var(--text-dim); }
+    .demo-card .pages {
+      margin-top: 12px; font-family: var(--font-mono); font-size: .7rem; color: var(--text-faint);
+    }
+    @media (max-width: 560px) {
+      .demo-card { grid-template-columns: 1fr; }
+      .swatch { height: 12px; flex-direction: row; }
+    }
+  </style>
+bodyClass: demo-index
+---
+<main id="main">
+  <section class="demo-lede">
+    <h1>三種展示架構</h1>
+    <p>
+      同一套內容結構(自我介紹、作品、案例、文章、社群、聯絡),三種完全不同的第一印象。
+      策展流程裡的風格訪談結束後,就是從這裡選一個。
+    </p>
+    <p class="why">
+      為什麼要三種:設計師靠作品建立信任,講師靠見證與邀約入口,寫作者靠文字深度。
+      同一個版型服務不了這三種人 —— 而「換架構不用重寫內容」正是內容與展示分離的目的。
+      下面每個示範都有完整內頁,人物與作品皆為虛構。
+    </p>
+  </section>
+
+  <div class="demo-grid">
+    <a class="demo-card" href="/demo/gallery/">
+      <span class="swatch" aria-hidden="true">
+        <i style="background:#f4f4f1"></i><i style="background:#e8542f"></i><i style="background:#17181a"></i>
+      </span>
+      <span class="meat">
+        <span class="who">A · 視覺系 GALLERY</span>
+        <h2>作品即門面</h2>
+        <p>設計師、插畫家、攝影師。大字定位加作品牆,文字退到說明的位置,顏色全部讓給作品。</p>
+        <span class="pages">首頁 · 2 個案例內頁</span>
+      </span>
+    </a>
+
+    <a class="demo-card" href="/demo/stage/">
+      <span class="swatch" aria-hidden="true">
+        <i style="background:#1d3a34"></i><i style="background:#c9a45c"></i><i style="background:#f3efe7"></i>
+      </span>
+      <span class="meat">
+        <span class="who">B · 舞台系 STAGE</span>
+        <h2>信任與邀約優先</h2>
+        <p>講師、顧問、知識型創作者。人像、合作單位、見證、精選演講,以及清楚的邀約入口。</p>
+        <span class="pages">首頁 · 演講頁 · 服務頁</span>
+      </span>
+    </a>
+
+    <a class="demo-card" href="/demo/journal/">
+      <span class="swatch" aria-hidden="true">
+        <i style="background:#fdfdfc"></i><i style="background:#9a5b13"></i><i style="background:#1c1e21"></i>
+      </span>
+      <span class="meat">
+        <span class="who">C · 誌面系 JOURNAL</span>
+        <h2>文字深度取信</h2>
+        <p>寫作者、工程師、研究者。單欄窄版,案例附證據區塊與本人確認日期,明暗雙主題。</p>
+        <span class="pages">首頁 · 2 個案例內頁</span>
+      </span>
+    </a>
+  </div>
+</main>

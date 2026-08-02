@@ -1,0 +1,18 @@
+---
+layout: shell.njk
+theme: journal
+---
+<header class="site-header">
+  <a class="brand" href="{{ home }}">{{ p.domain or p.name }}</a>
+  <nav>
+    {%- for item in p.nav %}<a href="{{ item.href }}">{{ item.label }}</a>{% endfor %}
+  </nav>
+</header>
+
+<main id="main">
+  {{ content | safe }}
+</main>
+
+<footer class="site-footer">
+  <p>© {{ buildYear }} {{ p.name }} · {{ p.contact.email }}</p>
+</footer>

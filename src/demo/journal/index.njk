@@ -1,0 +1,48 @@
+---
+layout: themes/journal/base.njk
+permalink: /demo/journal/
+title: 何思翰 — 後端工程師
+seoTitle: 展示架構示範 · 誌面系 Journal
+description: 個人策展服務的展示架構示範 — 誌面系,適合寫作者、工程師、研究者。
+bodyClass: home
+---
+<section class="home-hero">
+  <div class="avatar-mock">SH</div>
+  <h1>{{ p.name }}</h1>
+  <p class="alt-name-line">{{ p.domain }}</p>
+  <p class="role">{{ p.role }}</p>
+  <p class="bio">{{ p.sub }}</p>
+</section>
+
+<section class="section" id="work">
+  <h2>作品</h2>
+  <div class="project-grid">
+    <a class="project-card" href="/demo/journal/work/db-migration/">
+      <h3>不停機更換主資料庫</h3>
+      <p>把服務的主資料庫從 MySQL 換到 PostgreSQL,期間零停機、零資料遺失。雙寫、影子讀取、逐步切流。</p>
+      <ul class="project-tags"><li>PostgreSQL</li><li>雙寫</li><li>零停機</li></ul>
+    </a>
+    <a class="project-card" href="/demo/journal/work/retry-storm/">
+      <h3>一次 retry 造成的雪崩</h3>
+      <p>一個看似無害的重試設定,在尖峰時段把自己的服務打掛。事故報告與後來的修正。</p>
+      <ul class="project-tags"><li>事故分析</li><li>退避演算法</li><li>SRE</li></ul>
+    </a>
+  </div>
+</section>
+
+<section class="section" id="writing">
+  <h2>文章</h2>
+  <div>
+    {%- for a in p.articles %}
+    <a class="article-item" href="#">
+      <span class="article-date">{{ a.date | isoDate }}</span>
+      <span><span class="article-title">{{ a.title }}</span><span class="article-source">  {{ a.source }}</span></span>
+    </a>
+    {%- endfor %}
+  </div>
+</section>
+
+<section class="section" id="contact">
+  <h2>聯絡</h2>
+  <p style="color:var(--text-dim);font-size:.95rem;">{{ p.contact.heading }}{{ p.contact.note }}:<a href="mailto:{{ p.contact.email }}">{{ p.contact.email }}</a></p>
+</section>

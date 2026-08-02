@@ -1,0 +1,23 @@
+---
+layout: shell.njk
+theme: stage
+---
+{%- if not heroBand %}
+<div class="inner-header">
+  <div class="wrap">
+    <header class="site-header">
+      <a class="brand" href="{{ home }}">{{ p.name }}</a>
+      <nav>{% for item in p.nav %}<a href="{{ home }}{{ item.href }}">{{ item.label }}</a>{% endfor %}</nav>
+    </header>
+  </div>
+</div>
+{%- endif %}
+
+{{ content | safe }}
+
+<div class="wrap">
+  <footer class="site-footer">
+    <span>© {{ buildYear }} {{ p.name }}</span>
+    <span>{{ p.contact.email }}</span>
+  </footer>
+</div>

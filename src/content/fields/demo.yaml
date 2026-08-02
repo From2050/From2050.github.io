@@ -1,0 +1,85 @@
+# 三個展示架構的示範內容。人物、品牌與作品皆為虛構,用途是讓潛在客戶
+# 在自己的素材進來之前,先看見成品的樣子。
+#
+# 三個 persona 共用同一組欄位 —— 這正是重點:換架構不用重寫內容。
+
+gallery:
+  name: 林珮珊
+  latin: PEISHAN®
+  domain: peishan.design
+  role: 品牌設計師
+  headline: 讓小品牌,
+  headlineEm: 看起來像它值得的樣子
+  sub: 品牌識別 · 包裝 · 主視覺。九年,四十三個品牌,從一頁提案到貨架上的實體。
+  meta: TAIPEI · 接案中 · 2026 Q4 檔期開放
+  nav:
+    - { label: 作品, href: "#work" }
+    - { label: 關於, href: "#about" }
+    - { label: 聯絡, href: "#contact" }
+  contact:
+    email: hello@peishan.design
+    note: 回信通常在 24 小時內
+    cta: 聊聊你的案子
+    heading: 有想做的品牌?
+  social:
+    handle: "@peishan.design"
+    note: 最新作品先發 Instagram
+    url: https://www.instagram.com/
+
+stage:
+  name: 陳以築
+  latin: YICHU
+  domain: yichu.tw
+  role: 職涯策略顧問 · 企業講師
+  eyebrow: 職涯策略顧問 · 企業講師
+  headline: 把十年職涯,說成一句別人記得住的話。
+  sub: >-
+    八年人資主管出身。我陪專業工作者把散落的經歷整理成清楚的定位 ——
+    給準備轉職的你,或想把團隊故事說清楚的企業。
+  credential: 陳以築 EMBA · CDA 認證
+  nav:
+    - { label: 演講, href: "#talks" }
+    - { label: 見證, href: "#quotes" }
+    - { label: 文章, href: "#writing" }
+    - { label: 聯絡, href: "#contact" }
+  clients: [森亞學院, 曉山創投, 白鹿文化, 未來人才計畫, 南方大學職涯中心]
+  featuredTalk:
+    title: 「你的履歷不是清單,是論證」
+    meta: 年會主題演講 · 18 分鐘
+  quotes:
+    - text: 一個小時的訪談,她問出了我自己十年都沒說清楚的那條線。改完的定位,下一週面試就用上了。
+      by: 資深產品經理 · 轉職成功
+    - text: 給主管團隊的工作坊結束後,每個人都能用三句話講清楚自己部門的價值。這件事我們內部試了兩年沒做到。
+      by: 科技業人資長
+  articles:
+    - { title: 面試講「我很努力」為什麼沒有用, date: 2026-07-18, source: 個人電子報 }
+    - { title: 轉職前先問自己的四個問題, date: 2026-06-05, source: Medium }
+    - { title: 為什麼你的自我介紹別人記不住, date: 2026-04-22, source: 個人電子報 }
+  contact:
+    email: hello@yichu.tw
+    note: 通常兩個工作天內回覆
+    cta: 來信聊聊
+    heading: 下一場演講,或你的下一步
+
+journal:
+  name: 何思翰
+  latin: SZUHAN
+  domain: szuhan.dev
+  role: 後端工程師 · 技術寫作者
+  headline: 我把難懂的系統,寫成別人看得懂的東西。
+  sub: >-
+    分散式系統與資料庫。白天寫程式,晚上寫文章解釋白天遇到的坑 ——
+    七年,兩百篇技術筆記,以及幾次代價高昂的教訓。
+  nav:
+    - { label: 作品, href: "#work" }
+    - { label: 文章, href: "#writing" }
+    - { label: 聯絡, href: "#contact" }
+  articles:
+    - { title: 我們如何在不停機的情況下換掉主資料庫, date: 2026-07-02, source: 公司技術部落格 }
+    - { title: 為什麼你的 retry 讓事情更糟, date: 2026-05-14, source: 個人網站 }
+    - { title: 快取失效不是難題,是設計選擇, date: 2026-03-30, source: iThome 鐵人賽 }
+  contact:
+    email: hi@szuhan.dev
+    note: 也可以在 GitHub 上找到我
+    cta: 寄信給我
+    heading: 想聊聊系統設計?
