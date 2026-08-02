@@ -1,0 +1,51 @@
+name: Refresh Meta tokens
+
+# Instagram and Threads long-lived tokens expire 60 days after issue. Calling
+# the refresh endpoint resets that clock, so a weekly run keeps them alive
+# without any manual work.
+#
+# Requires a secret named GH_PAT: a fine-grained personal access token scoped
+# to this repository with "Secrets: read and write" permission. The built-in
+# GITHUB_TOKEN cannot update secrets, which is why a PAT is needed here.
+
+on:
+  schedule:
+    - cron: "22 4 * * 1"    # Mondays
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Request new tokens
+        env:
+          INSTAGRAM_TOKEN: ${{ secrets.INSTAGRAM_TOKEN }}
+          THREADS_TOKEN: ${{ secrets.THREADS_TOKEN }}
+        run: node scripts/refresh-tokens.mjs
+
+      - name: Store refreshed tokens back into GitHub Secrets
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "GH_PAT is not set — skipping write-back."
+            echo "Tokens were refreshed at Meta but the stored secrets still hold"
+            echo "the previous values, so they will expire on their original date."
+            exit 0
+          fi
+          for name in INSTAGRAM_TOKEN THREADS_TOKEN; do
+            file="$RUNNER_TEMP/$name.txt"
+            [ -f "$file" ] || continue
+            echo "::add-mask::$(cat "$file")"
+            gh secret set "$name" --repo "$GITHUB_REPOSITORY" < "$file"
+            echo "Updated secret $name"
+          done

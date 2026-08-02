@@ -1,5 +1,5 @@
 /* ============================================================
-   chiehnengwu.dev — quiet, text-first engineer résumé page
+   chiehnengwu.dev — shared tokens, homepage hub, résumé page
    ============================================================ */
 
 :root {
@@ -204,6 +204,191 @@ h3 { font-size: 0.98rem; font-weight: 600; line-height: 1.45; }
   .entry { grid-template-columns: 1fr; gap: 4px; margin-bottom: 24px; }
   .entry-meta { flex-direction: row; gap: 12px; align-items: baseline; }
   .skills > div { grid-template-columns: 1fr; gap: 2px; }
+}
+
+/* ============================================================
+   HOMEPAGE (body.home)
+   ============================================================ */
+
+body.home { max-width: 880px; }
+
+/* ---------- hero ---------- */
+
+.home-hero { text-align: center; padding: 52px 0 8px; }
+
+.avatar {
+  width: 96px; height: 96px; border-radius: 50%;
+  border: 1px solid var(--line);
+  object-fit: cover; margin-bottom: 18px;
+  background: var(--code-bg);
+}
+
+.home-hero h1 { font-size: 1.85rem; margin-bottom: 2px; }
+.alt-name-line {
+  font-family: var(--font-mono); font-size: 0.82rem;
+  color: var(--text-faint); margin-bottom: 10px;
+}
+.home-hero .role { color: var(--text); font-weight: 600; margin-bottom: 14px; }
+.bio {
+  color: var(--text-dim); font-size: 0.95rem;
+  max-width: 46em; margin: 0 auto 26px;
+}
+
+.resume-cta {
+  display: inline-flex; flex-direction: column; align-items: center; gap: 3px;
+  border: 1px solid var(--line); border-radius: 10px;
+  padding: 13px 26px; color: var(--text);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.resume-cta:hover {
+  text-decoration: none; border-color: var(--accent); background: var(--code-bg);
+}
+.resume-cta > span:first-child { font-weight: 600; font-size: 0.95rem; }
+.resume-cta .cta-sub {
+  font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-faint);
+}
+
+/* ---------- social row ---------- */
+
+.social-row {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+  margin: 34px 0 4px;
+}
+.social-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--line); border-radius: 999px;
+  padding: 8px 16px 8px 13px;
+  color: var(--text); font-size: 0.86rem;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.social-link:hover {
+  text-decoration: none; border-color: var(--accent);
+  background: var(--code-bg); color: var(--accent);
+}
+.social-link svg { width: 17px; height: 17px; flex: none; }
+.social-handle { font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-faint); }
+.social-link:hover .social-handle { color: var(--accent); }
+
+/* ---------- projects ---------- */
+
+.project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.project-card {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--line); border-radius: 10px;
+  padding: 18px 20px; color: inherit;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.project-card:hover { text-decoration: none; border-color: var(--accent); background: var(--code-bg); }
+.project-card h3 { margin-bottom: 6px; }
+.project-card p { font-size: 0.88rem; color: var(--text-dim); }
+.project-tags {
+  list-style: none; display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: auto; padding-top: 14px;
+}
+.project-tags li {
+  font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-faint);
+  border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px;
+}
+
+/* ---------- feed ---------- */
+
+.feed-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap;
+}
+.feed-head h2 { flex: 1; }
+.feed-updated {
+  font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-faint);
+  padding-bottom: 8px;
+}
+
+.feed-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+.feed-card {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--line); border-radius: 10px;
+  overflow: hidden; color: inherit;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.feed-card:hover { text-decoration: none; border-color: var(--accent); }
+.feed-thumb {
+  aspect-ratio: 16 / 10; width: 100%; object-fit: cover;
+  background: var(--code-bg); display: block;
+}
+.feed-thumb-fallback {
+  aspect-ratio: 16 / 10; display: flex; align-items: center; justify-content: center;
+  background: var(--code-bg); color: var(--text-faint);
+}
+.feed-thumb-fallback svg { width: 26px; height: 26px; }
+.feed-body { padding: 12px 14px 14px; display: flex; flex-direction: column; flex: 1; }
+.feed-meta {
+  display: flex; align-items: center; gap: 7px; margin-bottom: 6px;
+}
+.platform-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-family: var(--font-mono); font-size: 0.65rem;
+  color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.06em;
+}
+.platform-badge svg { width: 12px; height: 12px; }
+.feed-date { font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-faint); }
+.feed-text {
+  font-size: 0.86rem; color: var(--text-dim); line-height: 1.5;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+  line-clamp: 3; overflow: hidden;
+}
+
+.feed-empty {
+  grid-column: 1 / -1;
+  font-size: 0.88rem; color: var(--text-faint);
+  border: 1px dashed var(--line); border-radius: 10px;
+  padding: 22px; text-align: center;
+}
+
+/* ---------- Instagram oEmbed ---------- */
+/* Instagram's own widget is always a white card (its iframe, its rules) —
+   frame it in a themed backdrop so that's a choice, not a mismatch. */
+
+.ig-embed-list {
+  display: flex; flex-wrap: wrap; gap: 16px;
+}
+.ig-embed-card {
+  background: var(--code-bg); border: 1px solid var(--line); border-radius: 10px;
+  padding: 12px; display: flex; justify-content: center;
+}
+.ig-embed-card .instagram-media {
+  margin: 0 !important; /* IG's inline style sets margin:1px; let the card own the spacing */
+}
+
+/* ---------- articles ---------- */
+
+.article-item {
+  display: flex; align-items: baseline; gap: 14px;
+  padding: 11px 0; border-bottom: 1px solid var(--line);
+  color: inherit;
+}
+.article-item:first-child { border-top: 1px solid var(--line); }
+.article-item:hover { text-decoration: none; color: var(--accent); }
+.article-date {
+  font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-faint);
+  flex: none; width: 82px;
+}
+.article-title { font-size: 0.93rem; }
+.article-source { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-faint); }
+
+/* ---------- homepage responsive ---------- */
+
+@media (max-width: 720px) {
+  .feed-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .project-grid, .feed-grid { grid-template-columns: 1fr; }
+  .home-hero { padding-top: 36px; }
+  .home-hero h1 { font-size: 1.6rem; }
+  .social-row { gap: 8px; }
+  .social-link { padding: 7px 13px 7px 11px; font-size: 0.82rem; }
+  .article-item { flex-direction: column; gap: 2px; }
+  .article-date { width: auto; }
 }
 
 /* ---------- print ---------- */
