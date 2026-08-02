@@ -344,6 +344,78 @@ body.home { max-width: 880px; }
   padding: 22px; text-align: center;
 }
 
+/* ============================================================
+   CASE STUDY PAGE (body.case)
+   ============================================================ */
+
+body.case { max-width: 720px; }
+
+.case-header { padding: 48px 0 0; }
+.case-meta {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  font-family: var(--font-mono); font-size: 0.76rem; color: var(--text-faint);
+  margin-bottom: 14px;
+}
+.case-role { color: var(--accent); }
+
+.case-page h1 {
+  font-size: 1.75rem; line-height: 1.25; margin-bottom: 14px;
+}
+.case-summary {
+  font-size: 1.02rem; color: var(--text-dim); line-height: 1.7;
+}
+.case-tags {
+  list-style: none; display: flex; flex-wrap: wrap; gap: 7px; margin-top: 18px;
+}
+.case-tags li {
+  font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-faint);
+  border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px;
+}
+
+.case-body { padding-top: 8px; }
+.case-body h2 {
+  font-size: 1.02rem; margin-top: 40px;
+}
+.case-body p { margin-top: 14px; color: var(--text-dim); }
+.case-body p:first-child { margin-top: 22px; }
+.case-body strong { color: var(--text); }
+
+/* A pulled-out lesson — the transferable point, not decoration. */
+.case-body blockquote {
+  margin: 24px 0; padding: 14px 0 14px 18px;
+  border-left: 2px solid var(--accent);
+  font-size: 0.98rem; color: var(--text);
+}
+.case-body blockquote p { margin: 0; color: inherit; }
+
+.case-evidence {
+  margin-top: 48px; padding: 24px 26px;
+  background: var(--code-bg); border-radius: 10px;
+}
+.case-evidence h2 {
+  font-size: 0.95rem; border: 0; padding: 0; margin-bottom: 16px;
+}
+.case-evidence dl { display: grid; gap: 14px; }
+.case-evidence dt {
+  font-size: 0.9rem; font-weight: 600; margin-bottom: 3px;
+}
+.case-evidence dd { font-size: 0.88rem; color: var(--text-dim); }
+
+.case-footer {
+  margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: 14px;
+}
+.case-confirmed {
+  font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-faint);
+  line-height: 1.6;
+}
+.case-back { font-size: 0.9rem; }
+
+@media (max-width: 560px) {
+  .case-page h1 { font-size: 1.45rem; }
+  .case-evidence { padding: 20px 18px; }
+}
+
 /* ---------- Instagram oEmbed ---------- */
 /* Instagram's own widget is always a white card (its iframe, its rules) —
    frame it in a themed backdrop so that's a choice, not a mismatch. */

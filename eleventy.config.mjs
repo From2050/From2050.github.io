@@ -35,7 +35,7 @@ export default function (eleventyConfig) {
       input: "src",
       output: "_site",
       includes: "_includes",
-      data: "content",
+      data: "content/fields",
     },
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk",
