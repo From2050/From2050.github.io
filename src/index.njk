@@ -1,0 +1,86 @@
+---
+layout: base.njk
+bodyClass: home
+extraScripts: '<script src="/assets/home.js"></script>'
+---
+{% from "parts/icons.njk" import icon %}
+
+<section class="home-hero">
+  <img class="avatar" src="{{ profile.avatar }}" alt="{{ profile.name }}" width="96" height="96">
+  <h1>{{ profile.name }}</h1>
+  {% if profile.altName %}<p class="alt-name-line">{{ profile.altName }}</p>{% endif %}
+  <p class="role">{{ profile.tagline }}</p>
+  <p class="bio">{{ profile.bio }}</p>
+  <a class="resume-cta" href="/resume/">
+    <span>看完整履歷</span>
+    <span class="cta-sub">RTL · FPGA · post-silicon bring-up · embedded Linux · edge ML</span>
+  </a>
+</section>
+
+{% set shown = socials | selectattr("enabled") | list %}
+{% if shown | length %}
+<nav class="social-row" aria-label="社群連結">
+  {%- for s in shown %}
+  <a class="social-link" href="{{ s.url }}"{% if "http" in s.url %} target="_blank" rel="noopener"{% endif %}>
+    {{ icon(s.platform) }}<span>{{ s.label }}</span>{% if s.handle %}<span class="social-handle">{{ s.handle }}</span>{% endif %}
+  </a>
+  {%- endfor %}
+</nav>
+{% endif %}
+
+{% if projects | length %}
+<section class="section" id="work">
+  <h2>作品</h2>
+  <div class="project-grid">
+    {%- for p in projects %}
+    <a class="project-card" href="{{ p.url }}"{% if "http" in p.url %} target="_blank" rel="noopener"{% endif %}>
+      <h3>{{ p.title }}</h3>
+      {% if p.description %}<p>{{ p.description }}</p>{% endif %}
+      {%- if p.tags | length %}
+      <ul class="project-tags">{% for t in p.tags %}<li>{{ t }}</li>{% endfor %}</ul>
+      {%- endif %}
+    </a>
+    {%- endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="section" id="feed">
+  <div class="feed-head">
+    <h2>最新動態</h2>
+    <p class="feed-updated" id="feed-updated"></p>
+  </div>
+  <div class="feed-grid" id="feed-grid">
+    <p class="feed-empty">載入中…</p>
+  </div>
+</section>
+
+{% if instagram | length %}
+<section class="section" id="ig-embeds">
+  <h2>精選 Instagram 貼文</h2>
+  <p class="section-note">手動精選,不需要 API 也會顯示。</p>
+  <div class="ig-embed-list">
+    {%- for url in instagram %}
+    <div class="ig-embed-card">
+      <blockquote class="instagram-media" data-instgrm-permalink="{{ url }}" data-instgrm-version="14">
+        <a href="{{ url }}" target="_blank" rel="noopener">在 Instagram 查看這則貼文</a>
+      </blockquote>
+    </div>
+    {%- endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if articles | length %}
+<section class="section" id="articles">
+  <h2>文章</h2>
+  <div>
+    {%- for a in articles %}
+    <a class="article-item" href="{{ a.url }}"{% if "http" in a.url %} target="_blank" rel="noopener"{% endif %}>
+      <span class="article-date">{{ a.date }}</span>
+      <span><span class="article-title">{{ a.title }}</span>{% if a.source %}<span class="article-source">  {{ a.source }}</span>{% endif %}</span>
+    </a>
+    {%- endfor %}
+  </div>
+</section>
+{% endif %}

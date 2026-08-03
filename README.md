@@ -8,30 +8,62 @@ Personal site for **Jay Wu (Chieh-Neng Wu)**, hosted on GitHub Pages at
 
 ## Structure
 
-| File | Purpose |
-|---|---|
-| `index.html` | Homepage shell; content comes from `data/*.json` at runtime |
-| `resume/index.html` | Résumé (experience, case studies, debug stories, skills) |
-| `assets/style.css` | Design for both pages (light/dark, responsive, print) |
-| `assets/home.js` | Renders the homepage from the JSON data files |
-| `assets/favicon.svg` | Chip-icon favicon |
-| `data/links.json` | **Edit this** — profile, social links, projects, articles |
-| `data/feeds.json` | Auto-generated social posts; do not edit by hand |
-| `scripts/fetch-feeds.mjs` | Fetches YouTube / Instagram / Threads posts |
-| `scripts/refresh-tokens.mjs` | Extends the Meta tokens before they expire |
-| `.github/workflows/` | Scheduled jobs that run the two scripts |
-| `CNAME` | Custom domain for GitHub Pages |
-| `.nojekyll` | Skip Jekyll processing |
+Two layers, per the service's design principle: the **display system** is fixed
+and clients never touch it; **user content** is all a curation Agent ever edits.
 
-No build step, no frameworks. No third-party scripts either, *unless*
-`instagramEmbeds` in `data/links.json` is non-empty — see below.
+| Path | Layer | Purpose |
+|---|---|---|
+| `src/_includes/` | display | Layouts, partials, SEO — the part that must not break |
+| `src/content/*.yaml` | content | profile, socials, projects, articles, instagram |
+| `src/content/cases/*.md` | content | One file per full case-study page |
+| `src/index.njk`, `src/resume/` | display | Page shells |
+| `assets/` | display | CSS, JS, favicon, OG image |
+| `data/feeds.json` | generated | Auto-refreshed social posts; never edited by hand |
+| `scripts/` | — | Content intake, feed fetching, token refresh |
+| `.github/` | — | Issue form + workflows |
+| `eleventy.config.mjs` | — | Build config |
 
-## Editing the homepage
+Built with [Eleventy](https://www.11ty.dev/). Pages are rendered to real HTML at
+build time, so content is visible to crawlers and to anyone reading view-source.
+The only client-side JavaScript is the auto-refreshed feed and Instagram's embed
+widget.
 
-Everything visible on the homepage except the auto-fetched feed lives in
-`data/links.json`: profile text, avatar, which social links appear
-(`"enabled": true/false`), project cards, and the article list. Commit a change
-to that file and the page updates — no code changes needed.
+```sh
+npm ci
+npm run build     # → _site/
+npm run serve     # local preview with live reload
+```
+
+The build runs in CI, never on a content editor's machine — nobody updating the
+site needs Node installed, and a failed build leaves the last good deployment
+live instead of breaking the site for visitors.
+
+## Adding content (the normal way)
+
+**Open a new issue using the "新增內容到首頁" template.** Pick a type, paste a
+link, submit. A workflow validates it, commits the change, redeploys the
+site, then comments and closes the issue — usually under a minute. It works from
+a phone, which is the point: curation that requires a laptop and hand-edited JSON
+doesn't survive contact with real life.
+
+If something is wrong with the submission — a duplicate post, a non-Instagram
+URL in the Instagram field, a missing title — nothing is committed and the issue
+gets a comment explaining why.
+
+Only issues opened by the repository owner are acted on. This repo is public, so
+without that check anyone could push content onto the live site.
+
+Ordering follows how the page reads: Instagram posts and articles are prepended
+(newest first), projects are appended, since that list is hand-ordered by
+significance.
+
+## Editing the homepage directly
+
+Everything on the homepage except the auto-fetched feed lives in
+`src/content/`: `profile.yaml`, `socials.yaml` (each entry has `enabled:`),
+`projects.yaml`, `articles.yaml`, `instagram.yaml`, and `cases/*.md`. Edit these
+directly when you need to reorder, reword, or delete — the issue form only
+appends.
 
 Empty sections hide themselves, so an empty `articles` array simply removes the
 文章 heading.
@@ -74,13 +106,11 @@ Run either workflow immediately from the **Actions** tab via *Run workflow*.
 
 The auto-fetched feed above needs `INSTAGRAM_TOKEN` to show Instagram posts.
 Until that's set up — or for posts worth pinning even after it is — add the
-post's plain URL to `instagramEmbeds` in `data/links.json`:
+post's plain URL to `src/content/instagram.yaml`:
 
-```json
-"instagramEmbeds": [
-  "https://www.instagram.com/p/POST_SHORTCODE/",
-  "https://www.instagram.com/reel/REEL_SHORTCODE/"
-]
+```yaml
+- https://www.instagram.com/p/POST_SHORTCODE/
+- https://www.instagram.com/reel/REEL_SHORTCODE/
 ```
 
 This uses Instagram's official oEmbed widget (the same thing their own
@@ -91,11 +121,11 @@ card is Instagram's own fixed white-background design (framed here in a
 themed card so it doesn't look like a mismatch in dark mode).
 
 It also loads `instagram.com/embed.js` — a Meta-controlled script — but only
-on pages where `instagramEmbeds` is non-empty; leave the array empty and the
+on pages where the file is non-empty; leave the array empty and the
 page stays script-free.
 
 Once `INSTAGRAM_TOKEN` is live, real posts start appearing in the automated
-`最新動態` feed above with no further action. `instagramEmbeds` is independent
+`最新動態` feed above with no further action. `instagram.yaml` is independent
 of that — keep it as a pinned/curated shelf, or empty the array; either way
 needs no code change.
 
@@ -105,13 +135,13 @@ needs no code change.
 YOUTUBE_CHANNEL_ID=UCxxxxxxxx node scripts/fetch-feeds.mjs
 ```
 
-The homepage reads its JSON with `fetch`, so previewing needs a real server —
-`python3 -m http.server 8000` — rather than opening the file directly.
+Use `npm run serve` to preview the built site locally.
 
 ## Deploy (GitHub Pages)
 
 1. Merge to `main`.
-2. **Settings → Pages → Build and deployment**: Deploy from a branch → `main` / `/ (root)`.
+2. **Settings → Pages → Build and deployment**: source must be **GitHub Actions**
+   (not "Deploy from a branch") — `.github/workflows/deploy.yml` publishes the build.
 3. **Settings → Pages → Custom domain**: enter `chiehnengwu.dev`, save.
 4. After the DNS check passes, enable **Enforce HTTPS**.
 

@@ -1,0 +1,111 @@
+---
+layout: themes/stage/base.njk
+permalink: /demo/stage/
+title: 陳以築 — 職涯策略顧問
+seoTitle: 展示架構示範 · 舞台系 Stage
+description: 個人策展服務的展示架構示範 — 舞台系,適合講師、顧問、知識型創作者。
+heroBand: true
+---
+<div class="hero-band">
+  <div class="wrap">
+    <header class="site-header">
+      <a class="brand" href="{{ home }}">{{ p.name }}</a>
+      <nav>{% for item in p.nav %}<a href="{{ item.href }}">{{ item.label }}</a>{% endfor %}</nav>
+    </header>
+
+    <section class="hero">
+      <div>
+        <p class="eyebrow">{{ p.eyebrow }}</p>
+        <h1>{{ p.headline }}</h1>
+        <p class="lead">{{ p.sub }}</p>
+        <div class="hero-actions">
+          <a class="btn btn-brass" href="mailto:{{ p.contact.email }}">邀約演講</a>
+          <a class="btn btn-line" href="/demo/stage/service/positioning/">一對一諮詢</a>
+        </div>
+      </div>
+      <div class="portrait">
+        <div class="frame">
+          <svg viewBox="0 0 200 250" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+            <circle cx="100" cy="92" r="44" fill="#1d3a34" opacity=".92"/>
+            <path d="M28 250 C30 178 70 156 100 156 C130 156 170 178 172 250 Z" fill="#1d3a34" opacity=".92"/>
+          </svg>
+          <span class="credential">{{ p.credential }}</span>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<main id="main">
+  <div class="clients">
+    <div class="wrap">
+      <span class="lead-in">合作過</span>
+      {%- for c in p.clients %}<b>{{ c }}</b>{% endfor %}
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section class="section" id="talks">
+      <p class="label">Featured Talk</p>
+      <h2>精選演講</h2>
+      <a class="video" href="/demo/stage/talk/resume-as-argument/">
+        <span class="play"><i></i></span>
+        <span class="caption">{{ p.featuredTalk.title }} — {{ p.featuredTalk.meta }}</span>
+      </a>
+    </section>
+
+    <section class="section" id="quotes">
+      <p class="label">Testimonials</p>
+      <h2>他們怎麼說</h2>
+      <div class="quotes">
+        {%- for q in p.quotes %}
+        <blockquote class="quote">
+          <p>「{{ q.text }}」</p>
+          <footer>{{ q.by }}</footer>
+        </blockquote>
+        {%- endfor %}
+      </div>
+    </section>
+
+    <section class="section">
+      <p class="label">Topics</p>
+      <h2>三個常備主題</h2>
+      <div class="topics">
+        <a class="topic" href="/demo/stage/talk/resume-as-argument/">
+          <span class="no">01</span>
+          <h3>職涯敘事力</h3>
+          <p>把履歷從清單變成論證:一條主線,三個證據,一句記憶點。</p>
+        </a>
+        <a class="topic" href="/demo/stage/service/positioning/">
+          <span class="no">02</span>
+          <h3>轉職定位工作坊</h3>
+          <p>用四個訪談問題,找出你下一步真正能贏的位置。</p>
+        </a>
+        <a class="topic" href="/demo/stage/talk/resume-as-argument/">
+          <span class="no">03</span>
+          <h3>團隊價值溝通</h3>
+          <p>讓技術團隊把「我們在做什麼」講給預算決策者聽懂。</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="writing">
+      <p class="label">Writing</p>
+      <h2>最近的文章</h2>
+      <div class="article-list">
+        {%- for a in p.articles %}
+        <a class="article-item" href="#">
+          <time>{{ a.date | isoDate }}</time>
+          <span><b>{{ a.title }}</b><span class="src">{{ a.source }}</span></span>
+        </a>
+        {%- endfor %}
+      </div>
+    </section>
+
+    <section class="page-cta" id="contact">
+      <h2>{{ p.contact.heading }}</h2>
+      <p>邀約與諮詢:{{ p.contact.email }} · {{ p.contact.note }}</p>
+      <a class="btn btn-brass" href="mailto:{{ p.contact.email }}">{{ p.contact.cta }}</a>
+    </section>
+  </div>
+</main>

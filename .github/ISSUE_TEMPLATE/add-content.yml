@@ -1,0 +1,61 @@
+name: 新增內容到首頁
+description: 貼一個連結,自動加到 chiehnengwu.dev 首頁(手機也能用)
+title: "[內容] "
+labels: ["content"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        填完送出後,GitHub Actions 會自動更新 `data/links.json` 並重新部署網站,
+        大約一分鐘後生效。做完會在這則 issue 留言並自動關閉。
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: 內容類型
+      options:
+        - Instagram 貼文
+        - 文章
+        - 作品
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: 連結
+      description: Instagram 貼文請用 instagram.com 的公開網址
+      placeholder: https://www.instagram.com/p/XXXXXXX/
+    validations:
+      required: true
+
+  - type: input
+    id: title
+    attributes:
+      label: 標題
+      description: 「文章」和「作品」必填;Instagram 貼文可以留空
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 描述
+      description: 只有「作品」會用到,一到兩句話
+
+  - type: input
+    id: tags
+    attributes:
+      label: 標籤
+      description: 只有「作品」會用到,用逗號分隔
+      placeholder: ESP32-S3, INT8 ONNX
+
+  - type: input
+    id: source
+    attributes:
+      label: 出處
+      description: 只有「文章」會用到,例如 Medium、個人部落格
+
+  - type: input
+    id: date
+    attributes:
+      label: 日期
+      description: 只有「文章」會用到,格式 YYYY-MM-DD。留空就用今天

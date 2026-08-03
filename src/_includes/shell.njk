@@ -1,0 +1,32 @@
+{#- HTML 外殼:所有主題共用。
+    只負責 <head>、SEO 與載入正確的主題樣式;
+    header / footer 由各主題的 base 自己決定。 -#}
+<!doctype html>
+<html lang="{{ pageLang or site.lang or 'zh-Hant' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ seoTitle or title or site.title }}</title>
+  <meta name="description" content="{{ description or site.description }}">
+  <link rel="canonical" href="{{ page.url | absoluteUrl(site.url) }}">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="{{ ogType or 'website' }}">
+  <meta property="og:title" content="{{ seoTitle or title or site.title }}">
+  <meta property="og:description" content="{{ description or site.description }}">
+  <meta property="og:url" content="{{ page.url | absoluteUrl(site.url) }}">
+  {%- if ogImage or site.ogImage %}
+  <meta property="og:image" content="{{ (ogImage or site.ogImage) | absoluteUrl(site.url) }}">
+  <meta name="twitter:card" content="summary_large_image">
+  {%- endif %}
+
+  <link rel="stylesheet" href="/assets/themes/_base.css">
+  <link rel="stylesheet" href="/assets/themes/{{ theme or site.theme or 'journal' }}.css">
+  {{ extraHead | safe }}
+</head>
+<body class="{{ bodyClass }}">
+  <a class="skip-link" href="#main">跳至主要內容</a>
+  {{ content | safe }}
+  {{ extraScripts | safe }}
+</body>
+</html>

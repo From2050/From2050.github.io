@@ -1,5 +1,7 @@
 /* ============================================================
-   chiehnengwu.dev — shared tokens, homepage hub, résumé page
+   主題 C · 誌面系 Journal
+   給寫作者、工程師、研究者 — 以文字深度與可查核事實取信。
+   單欄、窄版、mono 標記;明暗雙主題。
    ============================================================ */
 
 :root {
@@ -25,8 +27,6 @@
     --code-bg: #181d24;
   }
 }
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   background: var(--bg);
@@ -475,4 +475,12 @@ body.case { max-width: 720px; }
   .section, .intro { padding-top: 18px; }
   .entry, .case, .story { break-inside: avoid; }
   a { color: inherit; }
+}
+
+/* 示範用頭像(正式站用實際照片) */
+.avatar-mock {
+  width: 96px; height: 96px; border-radius: 50%; margin: 0 auto 18px;
+  background: linear-gradient(140deg, var(--accent), #d9b075);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--bg); font-family: var(--font-mono); font-weight: 600; font-size: 1.6rem;
 }

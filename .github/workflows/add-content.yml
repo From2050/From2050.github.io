@@ -1,0 +1,78 @@
+name: Add content from issue
+
+# Turns an issue opened with the "新增內容到首頁" form into a commit on
+# src/content/*.yaml, so curating the site needs nothing but a link — no YAML
+# editing, and it works from a phone.
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: add-content
+  cancel-in-progress: false
+
+jobs:
+  add:
+    # This repository is public, so anyone can open an issue. Only act on the
+    # owner's own submissions — otherwise a stranger could push arbitrary
+    # content and links onto the live site.
+    if: >-
+      contains(github.event.issue.labels.*.name, 'content') &&
+      github.event.issue.user.login == github.repository_owner
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Apply the submission to the content files
+        id: apply
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: node scripts/add-content.mjs
+
+      - name: Commit and push
+        env:
+          SUMMARY: ${{ steps.apply.outputs.summary }}
+        run: |
+          if git diff --quiet -- src/content; then
+            echo "content unchanged — nothing to commit."
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/content
+          git commit -m "content: $SUMMARY"
+          git push
+
+      - name: Confirm on the issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUMBER: ${{ github.event.issue.number }}
+          SUMMARY: ${{ steps.apply.outputs.summary }}
+        run: |
+          gh issue comment "$NUMBER" --body "✅ $SUMMARY
+
+          網站正在重新部署,大約一分鐘後可以在 https://chiehnengwu.dev 看到。"
+          gh issue close "$NUMBER"
+
+      - name: Report the failure on the issue
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NUMBER: ${{ github.event.issue.number }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          gh issue comment "$NUMBER" --body "❌ 沒有加成功,網站沒有變動。
+
+          詳細錯誤在 [這次的執行紀錄]($RUN_URL)。修正後重新開一則 issue 即可。"

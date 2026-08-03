@@ -1,0 +1,23 @@
+---
+layout: shell.njk
+theme: gallery
+---
+<div class="wrap">
+  <header class="site-header">
+    <a class="brand" href="{{ home }}">{{ p.latin or p.name }}</a>
+    <nav>
+      {%- for item in p.nav %}<a href="{{ item.href }}">{{ item.label }}</a>{% endfor %}
+    </nav>
+  </header>
+</div>
+
+<main id="main">
+  {{ content | safe }}
+</main>
+
+<div class="wrap">
+  <footer class="site-footer">
+    <span>© {{ buildYear }} {{ p.name }}</span>
+    <span>{{ p.contact.email }}</span>
+  </footer>
+</div>

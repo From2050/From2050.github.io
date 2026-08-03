@@ -1,0 +1,47 @@
+---
+layout: base.njk
+bodyClass: case
+---
+<article class="case-page">
+  <header class="case-header">
+    {% if period or role %}
+    <p class="case-meta">
+      {%- if period %}<span class="case-period">{{ period }}</span>{% endif -%}
+      {%- if role %}<span class="case-role">{{ role }}</span>{% endif -%}
+    </p>
+    {% endif %}
+    <h1>{{ title }}</h1>
+    {% if summary %}<p class="case-summary">{{ summary }}</p>{% endif %}
+    {%- if tags | length %}
+    <ul class="case-tags">{% for t in tags %}<li>{{ t }}</li>{% endfor %}</ul>
+    {%- endif %}
+  </header>
+
+  <div class="case-body">
+    {{ content | safe }}
+  </div>
+
+  {%- if evidence | length %}
+  <section class="case-evidence">
+    <h2>證據</h2>
+    <dl>
+      {%- for e in evidence %}
+      <div>
+        <dt>{{ e.label }}</dt>
+        <dd>{{ e.detail }}</dd>
+      </div>
+      {%- endfor %}
+    </dl>
+  </section>
+  {%- endif %}
+
+  <footer class="case-footer">
+    {% if confirmed %}
+    <p class="case-confirmed">
+      本頁內容由本人確認於 {{ confirmed | isoDate }} —
+      範圍與角色皆為實際擁有度,未誇大。
+    </p>
+    {% endif %}
+    <a class="case-back" href="/#work">← 回到所有作品</a>
+  </footer>
+</article>
